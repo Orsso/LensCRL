@@ -7,7 +7,7 @@ LensCRL - PDF Image Extractor
 A practical tool for automatically extracting images from PDF files
 and naming them according to CRL nomenclature.
 
-Author: Arien Reibel
+Author: Orsso
 Version: 1.0
 """
 

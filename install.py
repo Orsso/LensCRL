@@ -7,7 +7,7 @@ Installation Script - LensCRL v1.0
 Automatic installation and configuration of LensCRL,
 a practical PDF image extraction tool.
 
-Author: Arien Reibel
+Author: Orsso
 Version: 1.0
 """
 

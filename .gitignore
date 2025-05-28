@@ -91,9 +91,6 @@ images/
 temp/
 tmp/
 
-# Windows scripts (not tested yet)
-extract_images.bat
-
 # PDF test files (potentially large)
 *.pdf
 
