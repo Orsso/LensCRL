@@ -1,0 +1,26 @@
+# LensCRL v1.0 - Dependencies
+# ===========================
+
+# Main library for PDF manipulation
+PyMuPDF>=1.23.0
+
+# Optional: For advanced image manipulation features
+# Pillow>=10.0.0
+
+# The following modules are included in Python 3.7+ standard library:
+# - os
+# - re  
+# - sys
+# - argparse
+# - logging
+# - platform
+# - hashlib
+# - pathlib
+# - typing
+# - unicodedata
+
+# Recommended installation:
+# pip install -r requirements.txt
+# 
+# or for local installation:
+# pip install --user -r requirements.txt 
