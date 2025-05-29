@@ -751,14 +751,14 @@ st.markdown("""
     div[class*="main-reset-btn"] button {
         width: 100% !important;
         min-width: 0 !important;
-        height: 100px !important;
-        min-height: 100px !important;
-        font-size: 2.1rem !important;
+        height: 150px !important;
+        min-height: 150px !important;
+        font-size: 2.5rem !important;
         font-weight: 900 !important;
         text-transform: uppercase !important;
         letter-spacing: 0.12em !important;
-        border-radius: 14px !important;
-        padding: 2rem 1.5rem !important;
+        border-radius: 16px !important;
+        padding: 2.5rem 1.5rem !important;
         transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
         border: none !important;
         position: relative !important;
@@ -803,9 +803,9 @@ st.markdown("""
         }
         div[class*="main-download-btn"] button,
         div[class*="main-reset-btn"] button {
-            height: 64px !important;
-            min-height: 64px !important;
-            font-size: 1.1rem !important;
+            height: 80px !important;
+            min-height: 80px !important;
+            font-size: 1.2rem !important;
             padding: 1rem 0.5rem !important;
         }
     }
