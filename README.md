@@ -102,7 +102,7 @@ chmod +x extract_images.sh
 
 ## 💡 How it works
 
-1. Script analyzes PDF to find sections (bold 14pt titles)
+1. Script analyzes PDF to find sections
 2. Extracts images and determines which section they belong to
 3. Names them according to CRL nomenclature
 4. Filters duplicates using MD5 hash
@@ -126,10 +126,6 @@ done
 
 MIT License - see `LICENSE` file
 
-## 👨‍💻 Author
-
-**Arien Reibel** - Side project
-
 ---
 
 ## 🚀 Quick Start
@@ -145,4 +141,3 @@ python3 install.py
 ls ./test/CRL-*
 ```
 
-Simple and effective. 
