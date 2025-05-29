@@ -1,8 +1,11 @@
 # LensCRL v2.0 - Dependencies
 # ===========================
 
-# Main library for PDF manipulation (using binaries to avoid compilation issues)
-pymupdf-binaries>=1.23.0,<1.24.0
+# Main library for PDF manipulation - PyMuPDF (fitz)
+PyMuPDF>=1.23.0
+
+# Alternative PDF library (more compatible with cloud deployment)
+pypdfium2>=4.30.0
 
 # Configuration management
 pyyaml>=6.0
@@ -33,4 +36,6 @@ streamlit>=1.31.0
 # pip install -r requirements.txt
 # 
 # or for local installation:
-# pip install --user -r requirements.txt 
+# pip install --user -r requirements.txt
+
+# Note: For cloud deployment compatibility, pypdfium2 is included as an alternative to PyMuPDF 

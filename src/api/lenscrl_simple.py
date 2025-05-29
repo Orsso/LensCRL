@@ -13,11 +13,22 @@ Fonctionnalités essentielles :
 
 import logging
 import time
-import fitz
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional
 from dataclasses import dataclass
 import hashlib
+
+# Try PyMuPDF first, fallback to pypdfium2 for cloud compatibility
+PDF_BACKEND = None
+try:
+    import fitz
+    PDF_BACKEND = "pymupdf"
+except ImportError:
+    try:
+        import pypdfium2 as pdfium
+        PDF_BACKEND = "pypdfium2"
+    except ImportError:
+        raise ImportError("Aucune bibliothèque PDF disponible. Installez PyMuPDF ou pypdfium2.")
 
 
 @dataclass

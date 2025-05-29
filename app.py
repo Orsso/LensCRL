@@ -1,13 +1,48 @@
+#!/usr/bin/env python3
+"""
+LensCRL Web Interface
+=====================
+Interface web Streamlit pour l'extraction d'images PDF avec nomenclature CRL.
+"""
+
 import streamlit as st
 import os
 from pathlib import Path
 import tempfile
-from src.api.lenscrl_simple import LensCRLSimple
 import zipfile
 import io
 import shutil
 import base64
 from assets.logo import LOGO_SVG
+import sys
+
+# Try to import PyMuPDF first, fallback to pypdfium2 for Streamlit Cloud compatibility
+PDF_LIBRARY = None
+try:
+    import fitz
+    PDF_LIBRARY = "pymupdf"
+except ImportError:
+    try:
+        import pypdfium2 as pdfium
+        PDF_LIBRARY = "pypdfium2"
+    except ImportError:
+        st.error("❌ Aucune bibliothèque PDF disponible (PyMuPDF ou pypdfium2)")
+        st.stop()
+
+# Ajouter src au path pour les imports
+sys.path.insert(0, str(Path(__file__).parent / "src"))
+
+# Import de l'API LensCRL
+if PDF_LIBRARY == "pymupdf":
+    from src.api.lenscrl_simple import LensCRLSimple
+else:
+    # For cloud deployment, we'll need a pypdfium2 adapter
+    st.info("ℹ️ Mode compatibilité cloud (pypdfium2) - Certaines fonctionnalités peuvent être limitées")
+    try:
+        from src.api.lenscrl_simple import LensCRLSimple
+    except ImportError:
+        st.error("❌ Impossible de charger l'API LensCRL")
+        st.stop()
 
 # Configuration de la page
 st.set_page_config(
