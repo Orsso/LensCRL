@@ -746,7 +746,7 @@ st.markdown("""
         width: 100%;
     }
     
-    /* BOUTONS PRINCIPAUX - Flat, massifs, très visibles */
+    /* BOUTONS PRINCIPAUX - Flat, massifs, très visibles, avec relief premium */
     div[class*="main-download-btn"] button,
     div[class*="main-reset-btn"] button {
         width: 100% !important;
@@ -757,10 +757,10 @@ st.markdown("""
         font-weight: 900 !important;
         text-transform: uppercase !important;
         letter-spacing: 0.12em !important;
-        border-radius: 16px !important;
+        border-radius: 22px !important;
         padding: 2.5rem 1.5rem !important;
         transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        border: none !important;
+        border: 1.5px solid #eaf6f9 !important;
         position: relative !important;
         overflow: hidden !important;
         font-family: 'Inter', sans-serif !important;
@@ -769,30 +769,41 @@ st.markdown("""
         align-items: center !important;
         justify-content: center !important;
         text-align: center !important;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.10) !important;
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18), 0 1.5px 0 #fff inset !important;
         margin: 0 auto !important;
+        background-clip: padding-box !important;
     }
     
-    /* Download - vert flat */
     div[class*="main-download-btn"] button {
         background: #27ae60 !important;
         color: #fff !important;
     }
     div[class*="main-download-btn"] button:hover {
         background: #219150 !important;
-        box-shadow: 0 6px 24px rgba(39, 174, 96, 0.18) !important;
-        transform: translateY(-2px) scale(1.01) !important;
+        box-shadow: 0 16px 48px rgba(39, 174, 96, 0.22), 0 1.5px 0 #fff inset !important;
+        transform: translateY(-3px) scale(1.01) !important;
+        border-color: #d4f6e6 !important;
+    }
+    div[class*="main-download-btn"] button:active {
+        box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10) !important;
+        transform: translateY(2px) scale(0.99) !important;
+        border-color: #b7e7d0 !important;
     }
     
-    /* Reset - rouge flat */
     div[class*="main-reset-btn"] button {
         background: #e74c3c !important;
         color: #fff !important;
     }
     div[class*="main-reset-btn"] button:hover {
         background: #c0392b !important;
-        box-shadow: 0 6px 24px rgba(231, 76, 60, 0.18) !important;
-        transform: translateY(-2px) scale(1.01) !important;
+        box-shadow: 0 16px 48px rgba(231, 76, 60, 0.22), 0 1.5px 0 #fff inset !important;
+        transform: translateY(-3px) scale(1.01) !important;
+        border-color: #f9eaea !important;
+    }
+    div[class*="main-reset-btn"] button:active {
+        box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10) !important;
+        transform: translateY(2px) scale(0.99) !important;
+        border-color: #f3b7b7 !important;
     }
     
     /* Responsive : sur mobile, moins de hauteur */
@@ -983,10 +994,45 @@ def main():
                 if 'is_processing' not in st.session_state:
                     st.session_state.is_processing = False
                 
-                process_button = st.button(
-                    "Lancer le traitement", 
-                    use_container_width=True
-                )
+                # Spinner CSS
+                spinner_html = '''<div class="lds-dual-ring"></div>'''
+                spinner_css = '''
+                <style>
+                .lds-dual-ring {
+                  display: inline-block;
+                  width: 32px;
+                  height: 32px;
+                  vertical-align: middle;
+                }
+                .lds-dual-ring:after {
+                  content: " ";
+                  display: block;
+                  width: 32px;
+                  height: 32px;
+                  margin: 0 auto;
+                  border-radius: 50%;
+                  border: 4px solid #4C9BE8;
+                  border-color: #4C9BE8 transparent #4C9BE8 transparent;
+                  animation: lds-dual-ring 1.1s linear infinite;
+                }
+                @keyframes lds-dual-ring {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+                </style>
+                '''
+                
+                if st.session_state.is_processing:
+                    st.markdown(spinner_css + f'<div style="display:flex;justify-content:center;align-items:center;height:56px;">{spinner_html}</div>', unsafe_allow_html=True)
+                else:
+                    process_button = st.button(
+                        "Lancer le traitement", 
+                        use_container_width=True,
+                        disabled=st.session_state.is_processing
+                    )
+                
+                if not st.session_state.is_processing and 'process_button' in locals() and process_button:
+                    st.session_state.is_processing = True
 
             if process_button:
                 # Création du dossier de sortie
