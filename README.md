@@ -6,8 +6,19 @@
 ![Streamlit](https://img.shields.io/badge/streamlit-latest-red.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
+## 🌐 Application en Ligne
+
+**🚀 Accès Direct : [https://lenscrl.streamlit.app/](https://lenscrl.streamlit.app/)**
+
+Utilisez l'application directement dans votre navigateur sans installation !
+
 ## 🚀 Démarrage Rapide
 
+### Option 1 : Application Web (Recommandé)
+- **En ligne** : [https://lenscrl.streamlit.app/](https://lenscrl.streamlit.app/)
+- **Local** : `streamlit run app.py`
+
+### Option 2 : Installation Locale
 ```bash
 # Installation
 pip install -r requirements.txt
@@ -29,14 +40,21 @@ python lenscrl_simple_cli.py extract document.pdf output/
 
 ## 🎯 Usage
 
-### Interface Web (Recommandé)
+### Option 1 : Application en Ligne (Le plus simple)
+1. Visitez [https://lenscrl.streamlit.app/](https://lenscrl.streamlit.app/)
+2. Glissez votre PDF dans la zone de dépôt
+3. Configurez le préfixe et nom du manuel
+4. Cliquez "Lancer le traitement"
+5. Téléchargez vos images organisées
+
+### Option 2 : Interface Web Locale
 1. Lancez `streamlit run app.py`
 2. Glissez votre PDF dans la zone de dépôt
 3. Configurez le préfixe et nom du manuel
 4. Cliquez "Lancer le traitement"
 5. Téléchargez vos images organisées
 
-### Ligne de Commande
+### Option 3 : Ligne de Commande
 ```bash
 python lenscrl_simple_cli.py extract document.pdf output/ --manual PROCSG02
 ```
