@@ -52,20 +52,26 @@ st.set_page_config(
     layout="centered",
 )
 
-# Styles CSS personnalisés
+# Styles CSS avec technique moderne des sections encapsulées
 st.markdown("""
 <style>
     /* Import de Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    /* Import Feather Icons */
-    @import url('https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/feather.min.css');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
     
     /* Reset et base */
     .main {
         padding: 1.5rem 2rem;
         max-width: 1200px;
         margin: 0 auto;
+    }
+    
+    /* Éviter l'encapsulation globale du container principal */
+    .main > .block-container > div:first-child {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     
     /* Header et logo */
@@ -79,18 +85,18 @@ st.markdown("""
     }
     
     .app-logo svg {
-        width: 40px;
-        height: 40px;
+        width: 75px;
+        height: 75px;
         filter: drop-shadow(0 2px 8px rgba(76, 155, 232, 0.3));
     }
     
     .app-title {
         color: #FFFFFF;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Orbitron', sans-serif;
         font-size: 2.25rem;
-        font-weight: 600;
+        font-weight: 700;
         margin: 0;
-        letter-spacing: -0.025em;
+        letter-spacing: 0.025em;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     
@@ -102,139 +108,250 @@ st.markdown("""
         margin: 0.5rem 0 0 0;
         opacity: 0.9;
     }
-    
-    /* Sections */
-    .section-header {
+
+    /* Technique moderne pour les sections encapsulées */
+    /* Section de sélection de fichier */
+    div[data-testid='stVerticalBlock']:has(.file-selection-marker) {
+        background: linear-gradient(135deg, rgba(14, 17, 23, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border: 1px solid rgba(76, 155, 232, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    div[data-testid='stVerticalBlock']:has(.file-selection-marker):before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #4C9BE8 0%, rgba(76, 155, 232, 0.2) 100%);
+    }
+
+    /* Section de configuration (collapsable) */
+    div[data-testid='stVerticalBlock']:has(.config-marker) {
+        background: linear-gradient(135deg, rgba(14, 17, 23, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border: 1px solid rgba(76, 155, 232, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    div[data-testid='stVerticalBlock']:has(.config-marker):before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #4C9BE8 0%, rgba(76, 155, 232, 0.2) 100%);
+    }
+
+    /* Section des résultats */
+    div[data-testid='stVerticalBlock']:has(.results-marker) {
+        background: linear-gradient(135deg, rgba(14, 17, 23, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border: 1px solid rgba(76, 155, 232, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    div[data-testid='stVerticalBlock']:has(.results-marker):before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #4C9BE8 0%, rgba(76, 155, 232, 0.2) 100%);
+    }
+
+    /* Section des actions */
+    div[data-testid='stVerticalBlock']:has(.actions-marker) {
+        background: linear-gradient(135deg, rgba(14, 17, 23, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border: 1px solid rgba(76, 155, 232, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    div[data-testid='stVerticalBlock']:has(.actions-marker):before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #4C9BE8 0%, rgba(76, 155, 232, 0.2) 100%);
+    }
+
+    /* Section des images par section */
+    div[data-testid='stVerticalBlock']:has(.images-sections-marker) {
+        background: linear-gradient(135deg, rgba(14, 17, 23, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border: 1px solid rgba(76, 155, 232, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    div[data-testid='stVerticalBlock']:has(.images-sections-marker):before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #4C9BE8 0%, rgba(76, 155, 232, 0.2) 100%);
+    }
+
+    /* Titres des sections avec icônes */
+    .section-title {
         color: #4C9BE8;
         font-family: 'Inter', sans-serif;
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         font-weight: 600;
-        margin: 2.5rem 0 1.5rem 0;
+        margin: 0 0 1.5rem 0;
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        padding-left: 0.5rem;
-        border-left: 3px solid #4C9BE8;
-        background: linear-gradient(90deg, rgba(76, 155, 232, 0.1) 0%, transparent 100%);
-        padding: 0.75rem 0 0.75rem 1rem;
-        border-radius: 0 8px 8px 0;
-        position: relative;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(76, 155, 232, 0.1);
     }
-    
-    /* Icônes pour les sections avec Feather Icons */
-    .section-header .icon {
+
+    .section-title svg {
         width: 20px;
         height: 20px;
         stroke: #4C9BE8;
-        stroke-width: 2;
-        margin-right: 0.5rem;
     }
-    
+
+    /* Gestion du collapse pour la configuration */
+    .config-collapsed {
+        height: 80px !important;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .config-expanded {
+        height: auto !important;
+        transition: all 0.3s ease;
+    }
+
+    /* Indicateur de collapse */
+    .collapse-indicator {
+        float: right;
+        transition: transform 0.3s ease;
+        font-size: 0.8rem;
+        color: #4C9BE8;
+    }
+
+    .collapse-indicator.collapsed {
+        transform: rotate(-90deg);
+    }
+
+    /* Masquer les marqueurs visuellement */
+    .file-selection-marker,
+    .config-marker,
+    .results-marker,
+    .actions-marker,
+    .images-sections-marker {
+        display: none;
+    }
+
     /* Fix hover rouge sur tous les éléments */
     .stButton > button, .stButton > button:hover, .stButton > button:focus, .stButton > button:active {
         color: white !important;
+        border: none !important;
+        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%) !important;
     }
     
     .stDownloadButton > button, .stDownloadButton > button:hover, .stDownloadButton > button:focus, .stDownloadButton > button:active {
         color: white !important;
+        border: none !important;
     }
-    
-    /* Expander fix */
-    .streamlit-expanderHeader, .streamlit-expanderHeader:hover, .streamlit-expanderHeader:focus {
-        color: #E6EDF3 !important;
-    }
-    
-    .streamlit-expanderContent {
-        color: #E6EDF3 !important;
-    }
-    
+
     /* Text content color fixes */
     .main, .main p, .main div, .main span {
         color: #E6EDF3 !important;
     }
+
+    /* Autres styles conservés... */
+    /* [Le reste des styles CSS existants] */
     
-    /* Metrics text */
-    .stMetric .metric-label, .stMetric .metric-value {
-        color: inherit !important;
+    /* Animation de loading */
+    .lds-dual-ring {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
     }
-    
-    /* Expanders styles modernes et compacts */
-    .streamlit-expanderHeader {
-        background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
-        border: 1px solid rgba(76, 155, 232, 0.3);
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
-        font-family: 'Inter', sans-serif;
-        font-weight: 500;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-        margin-bottom: 0.5rem;
-        color: #E6EDF3 !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+        border-radius: 50%;
+        border: 4px solid #4C9BE8;
+        border-color: #4C9BE8 transparent #4C9BE8 transparent;
+        animation: lds-dual-ring 1.1s linear infinite;
     }
-    .streamlit-expanderHeader:hover {
-        border-color: rgba(76, 155, 232, 0.6);
-        background: linear-gradient(135deg, #374151 0%, #4B5563 100%);
-        color: #E6EDF3 !important;
-        box-shadow: 0 2px 6px rgba(76, 155, 232, 0.15);
-        transform: translateY(-1px);
+    @keyframes lds-dual-ring {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
-    
-    /* Force expander text color on all states */
-    .streamlit-expanderHeader, 
-    .streamlit-expanderHeader:hover, 
-    .streamlit-expanderHeader:focus,
-    .streamlit-expanderHeader * {
-        color: #E6EDF3 !important;
-    }
-    
-    /* Expander arrow color */
-    .streamlit-expanderHeader svg {
-        stroke: #4C9BE8 !important;
-        width: 16px;
-        height: 16px;
-    }
-    
-    .streamlit-expanderContent {
-        border: 1px solid rgba(76, 155, 232, 0.2);
-        border-top: none;
-        border-radius: 0 0 8px 8px;
-        background: linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(55, 65, 81, 0.2) 100%);
-        padding: 1rem;
-        margin-top: -0.5rem;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    
+
     /* Boutons */
     .stButton > button {
-        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%);
+        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%) !important;
         color: white !important;
-        border: none;
-        border-radius: 12px;
-        padding: 0.875rem 2rem;
-        font-family: 'Inter', sans-serif;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 12px rgba(76, 155, 232, 0.25);
-        text-transform: none;
-        letter-spacing: 0.025em;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 0.875rem 2rem !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 0.95rem !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 4px 12px rgba(76, 155, 232, 0.25) !important;
+        text-transform: none !important;
+        letter-spacing: 0.025em !important;
     }
     .stButton > button:hover {
-        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-        box-shadow: 0 6px 20px rgba(76, 155, 232, 0.4);
-        transform: translateY(-2px);
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%) !important;
+        box-shadow: 0 6px 20px rgba(76, 155, 232, 0.4) !important;
+        transform: translateY(-2px) !important;
         color: white !important;
+        border: none !important;
     }
     .stButton > button:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(76, 155, 232, 0.3);
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(76, 155, 232, 0.3) !important;
         color: white !important;
+        border: none !important;
+        background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
     }
     .stButton > button:focus {
-        outline: none;
+        outline: none !important;
         color: white !important;
-        box-shadow: 0 0 0 2px rgba(76, 155, 232, 0.5);
+        border: none !important;
+        box-shadow: 0 0 0 2px rgba(76, 155, 232, 0.5) !important;
+        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%) !important;
     }
     
     /* Download buttons */
@@ -263,73 +380,7 @@ st.markdown("""
         outline: none;
         color: white !important;
     }
-    
-    /* Section download button special styling */
-    .section-download-btn .stDownloadButton > button {
-        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%);
-        color: white !important;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        min-height: 32px;
-    }
-    .section-download-btn .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-        color: white !important;
-    }
-    
-    /* Individual image download buttons */
-    .image-download-btn .stDownloadButton > button {
-        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
-        color: white !important;
-        font-size: 0.8rem;
-        padding: 0.3rem 0.6rem;
-        border-radius: 4px;
-        width: 100%;
-        min-height: 28px;
-    }
-    .image-download-btn .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #4B5563 0%, #374151 100%);
-        color: white !important;
-    }
-    
-    /* Bouton reset spécial */
-    .stButton > button[data-testid*="reset"] {
-        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
-        color: white !important;
-    }
-    .stButton > button[data-testid*="reset"]:hover {
-        background: linear-gradient(135deg, #4B5563 0%, #374151 100%);
-        color: white !important;
-    }
-    
-    /* Remove default Streamlit button styles that cause red text */
-    .stButton > button, .stDownloadButton > button {
-        background-color: transparent !important;
-        border-color: transparent !important;
-    }
-    
-    /* Force white text on all button states */
-    .stButton > button *, .stDownloadButton > button * {
-        color: white !important;
-    }
-    
-    /* Bouton désactivé */
-    .stButton > button:disabled {
-        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
-        color: #9CA3AF !important;
-        cursor: not-allowed;
-        box-shadow: none;
-        transform: none;
-        opacity: 0.7;
-    }
-    .stButton > button:disabled:hover {
-        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
-        color: #9CA3AF !important;
-        transform: none;
-        box-shadow: none;
-    }
-    
+
     /* Métriques */
     .stMetric {
         background: linear-gradient(135deg, #1E1E1E 0%, #2A2A2A 100%);
@@ -360,37 +411,35 @@ st.markdown("""
         box-shadow: 0 0 0 3px rgba(76, 155, 232, 0.15);
     }
     
-    /* Checkbox */
-    .stCheckbox > label {
-        font-family: 'Inter', sans-serif;
-        font-weight: 500;
-        color: #E6EDF3;
+    /* Checkboxes - les vraies cases à cocher, pas le texte */
+    .stCheckbox input[type="checkbox"]:checked {
+        background-color: #4C9BE8 !important;
+        border-color: #4C9BE8 !important;
+        accent-color: #4C9BE8 !important;
     }
     
-    /* Checkbox custom styling */
-    .stCheckbox > label > span:first-child {
-        background-color: transparent;
-        border: 2px solid #4C9BE8;
-        border-radius: 4px;
-        width: 18px;
-        height: 18px;
+    .stCheckbox input[type="checkbox"] {
+        accent-color: #4C9BE8 !important;
+        border-color: #363746 !important;
     }
     
-    .stCheckbox > label > span:first-child[data-checked="true"] {
-        background-color: #4C9BE8;
-        border-color: #4C9BE8;
+    .stCheckbox input[type="checkbox"]:hover {
+        border-color: #4C9BE8 !important;
     }
     
-    .stCheckbox > label > span:first-child[data-checked="true"]::after {
-        content: "✓";
-        color: white;
-        font-size: 12px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
+    /* Empêcher SEULEMENT le surlignage du texte - PAS la checkbox */
+    .stCheckbox label [data-testid="stMarkdownContainer"],
+    .stCheckbox label [data-testid="stMarkdownContainer"] p,
+    .stCheckbox label > div:last-child {
+        color: #E6EDF3 !important;
+        background: none !important;
+    }
+    
+    .stCheckbox label:hover [data-testid="stMarkdownContainer"],
+    .stCheckbox label:hover [data-testid="stMarkdownContainer"] p,
+    .stCheckbox label:hover > div:last-child {
+        color: #E6EDF3 !important;
+        background: none !important;
     }
     
     /* File uploader */
@@ -438,7 +487,7 @@ st.markdown("""
         letter-spacing: 0.025em;
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
-    
+
     /* Success/Info messages */
     .element-container .stAlert {
         border-radius: 12px;
@@ -452,7 +501,7 @@ st.markdown("""
         color: #E6EDF3 !important;
         background-color: transparent !important;
     }
-    
+
     /* Success messages with green accent */
     .stSuccess {
         border-color: rgba(46, 125, 50, 0.5) !important;
@@ -475,92 +524,18 @@ st.markdown("""
         border-color: rgba(239, 68, 68, 0.5) !important;
         background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(248, 113, 113, 0.1) 100%) !important;
     }
-    
-    /* Checkbox label text color fix */
-    .stCheckbox > label, .stCheckbox > label * {
-        color: #E6EDF3 !important;
-    }
-    
-    /* Text input labels */
-    .stTextInput > label, .stTextInput > label * {
-        color: #E6EDF3 !important;
-    }
-    
-    /* File uploader labels and help text */
-    .stFileUploader > label, .stFileUploader > label *,
-    .stFileUploader > div, .stFileUploader > div * {
-        color: #E6EDF3 !important;
-    }
-    
-    /* Spinner text */
-    .stSpinner > div {
-        color: #E6EDF3 !important;
-    }
-    
-    /* All paragraph and div text */
+
+    /* Force all text elements to be visible */
     p, div, span, label {
         color: #E6EDF3 !important;
     }
     
-    /* Force all Streamlit widget text to be visible */
     [data-testid="stMarkdownContainer"] p,
     [data-testid="stMarkdownContainer"] div,
     [data-testid="stMarkdownContainer"] span {
         color: #E6EDF3 !important;
     }
-    
-    /* Images dans les sections - style moderne et compact */
-    .section-image-container {
-        background: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(55, 65, 81, 0.4) 100%);
-        border-radius: 8px;
-        padding: 0.75rem;
-        margin-bottom: 0.75rem;
-        border: 1px solid rgba(76, 155, 232, 0.15);
-        transition: all 0.2s ease;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .section-image-container:hover {
-        border-color: rgba(76, 155, 232, 0.3);
-        background: linear-gradient(135deg, rgba(55, 65, 81, 0.7) 0%, rgba(75, 85, 99, 0.5) 100%);
-        transform: translateY(-1px);
-        box-shadow: 0 2px 6px rgba(76, 155, 232, 0.1);
-    }
-    
-    /* Filename styling moderne */
-    .image-filename {
-        font-size: 0.75rem;
-        color: #D1D5DB;
-        font-family: 'Inter', sans-serif;
-        background: rgba(17, 24, 39, 0.8);
-        padding: 0.4rem 0.6rem;
-        border-radius: 4px;
-        margin: 0.5rem 0;
-        border-left: 2px solid #4C9BE8;
-        word-break: break-all;
-        font-weight: 500;
-    }
-    
-    /* Footer */
-    .app-footer {
-        text-align: center;
-        padding: 2rem 0;
-        margin-top: 3rem;
-        border-top: 1px solid rgba(76, 155, 232, 0.15);
-        color: #8B949E;
-        font-family: 'Inter', sans-serif;
-        font-size: 0.9rem;
-    }
-    .app-footer a {
-        color: #4C9BE8;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-    .app-footer a:hover {
-        color: #58A6FF;
-    }
-    
+
     /* Animations */
     @keyframes fadeInUp {
         from {
@@ -585,261 +560,217 @@ st.markdown("""
         .app-title {
             font-size: 1.75rem;
         }
-        .section-header {
-            font-size: 1.1rem;
+        .section-title {
+            font-size: 1rem;
         }
     }
     
-    /* Sections détectées */
-    .sections-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        margin: 1.5rem 0;
-    }
+    /* ====== STYLES PERSONNALISÉS - PRIORITÉ ABSOLUE (À LA FIN) ====== */
     
-    .section-card {
-        background: linear-gradient(135deg, #1E1E1E 0%, #2A2A2A 100%);
-        border: 1px solid rgba(76, 155, 232, 0.2);
-        border-radius: 16px;
-        padding: 1.5rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    }
-    
-    .section-card:hover {
-        border-color: rgba(76, 155, 232, 0.4);
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-    
-    .section-card-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid rgba(76, 155, 232, 0.15);
-    }
-    
-    .section-title {
-        color: #4C9BE8;
-        font-family: 'Inter', sans-serif;
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin: 0;
-    }
-    
-    .section-count {
-        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%);
-        color: white;
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 500;
-        box-shadow: 0 2px 6px rgba(76, 155, 232, 0.3);
-    }
-    
-    .section-preview {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-        margin-top: 0.75rem;
-    }
-    
-    .section-preview img {
-        width: 100%;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 1px solid rgba(76, 155, 232, 0.2);
-        transition: all 0.2s ease;
-    }
-    
-    .section-preview img:hover {
-        border-color: rgba(76, 155, 232, 0.5);
-        transform: scale(1.05);
-    }
-    
-    .section-more {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(76, 155, 232, 0.1);
-        border: 1px dashed rgba(76, 155, 232, 0.3);
-        border-radius: 6px;
-        height: 60px;
-        color: #4C9BE8;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
-    
-    /* Stats cards */
-    .stats-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
-        margin: 1.5rem 0;
-    }
-    
-    .stat-card {
-        background: linear-gradient(135deg, #1E1E1E 0%, #2A2A2A 100%);
-        border: 1px solid rgba(76, 155, 232, 0.2);
-        border-radius: 16px;
-        padding: 1.5rem;
-        text-align: center;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    }
-    
-    .stat-card:hover {
-        border-color: rgba(76, 155, 232, 0.4);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-    
-    .stat-value {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #4C9BE8;
-        font-family: 'Inter', sans-serif;
-        margin-bottom: 0.5rem;
-    }
-    
-    .stat-label {
-        color: #8B949E;
-        font-size: 0.9rem;
-        font-weight: 500;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    /* Override any default Streamlit red colors on expanders */
-    [data-testid="stExpander"] * {
+    /* Réinitialiser tous les boutons à leur style natif d'abord */
+    .stButton > button {
+        background: transparent !important;
         color: #E6EDF3 !important;
+        border: 1px solid #363746 !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1.5rem !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 0.9rem !important;
+        transition: all 0.3s ease !important;
+        box-shadow: none !important;
     }
     
-    [data-testid="stExpander"] summary:hover {
-        color: #E6EDF3 !important;
-        background-color: rgba(76, 155, 232, 0.1) !important;
-    }
-    
-    [data-testid="stExpander"] summary:hover * {
-        color: #E6EDF3 !important;
-    }
-    
-    /* Remove any red text decoration */
-    [data-testid="stExpander"] a,
-    [data-testid="stExpander"] a:hover,
-    [data-testid="stExpander"] a:visited,
-    [data-testid="stExpander"] a:active {
+    .stButton > button:hover {
+        background: rgba(76, 155, 232, 0.1) !important;
         color: #4C9BE8 !important;
-        text-decoration: none !important;
+        border: 1px solid #4C9BE8 !important;
+        transform: none !important;
+        box-shadow: none !important;
     }
     
-    /* Container des boutons d'action principaux : vertical, occupe toute la largeur */
-    .action-buttons-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin: 0rem auto 1.5rem auto;
-        padding: 0;
-        max-width: 500px;
-        width: 100%;
+    /* Boutons de téléchargement VERTS - même couleur que l'icône de succès */
+    .stDownloadButton > button {
+        background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3) !important;
+        padding: 0.5rem 1rem !important;
+        transition: all 0.3s ease !important;
     }
     
-    /* Supprimer COMPLETEMENT l'espacement par défaut de Streamlit */
-    .action-buttons-container .element-container {
-        margin: 0 !important;
-        padding: 0 !important;
+    .stDownloadButton > button:hover {
+        background: linear-gradient(135deg, #2ECC71 0%, #27D177 100%) !important;
+        box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4) !important;
+        transform: translateY(-1px) !important;
+        color: white !important;
+        border: none !important;
     }
     
-    /* BOUTONS PRINCIPAUX - Cibler directement les boutons Streamlit */
-    .action-buttons-container .stDownloadButton > button,
-    .action-buttons-container .stButton > button {
-        width: 100% !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        height: 80px !important;
-        min-height: 80px !important;
-        max-height: 80px !important;
-        font-size: 1.1rem !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.08em !important;
+    /* Boutons personnalisés BLEUS - PRIORITÉ ABSOLUE FINALE */
+    button:contains("Lancer le traitement"),
+    button:contains("NOUVEAU DOC"),
+    .stButton > button[data-testid="baseButton-primary"],
+    .stButton button[kind="primary"] {
+        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%) !important;
+        color: white !important;
+        border: none !important;
         border-radius: 12px !important;
-        padding: 1rem !important;
-        transition: all 0.2s ease !important;
-        border: 2px solid transparent !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        padding: 0.875rem 2rem !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 0.95rem !important;
+        box-shadow: 0 4px 12px rgba(76, 155, 232, 0.25) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        text-transform: none !important;
+        letter-spacing: 0.025em !important;
+    }
+    
+    button:contains("Lancer le traitement"):hover,
+    button:contains("NOUVEAU DOC"):hover,
+    .stButton > button[data-testid="baseButton-primary"]:hover,
+    .stButton button[kind="primary"]:hover {
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%) !important;
+        box-shadow: 0 6px 20px rgba(76, 155, 232, 0.4) !important;
+        transform: translateY(-2px) !important;
+        color: white !important;
+        border: none !important;
+    }
+    
+    button:contains("Lancer le traitement"):active,
+    button:contains("NOUVEAU DOC"):active,
+    .stButton > button[data-testid="baseButton-primary"]:active,
+    .stButton button[kind="primary"]:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(76, 155, 232, 0.3) !important;
+        background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
+    }
+    
+    button:contains("Lancer le traitement"):focus,
+    button:contains("NOUVEAU DOC"):focus,
+    .stButton > button[data-testid="baseButton-primary"]:focus,
+    .stButton button[kind="primary"]:focus {
+        outline: none !important;
+        box-shadow: 0 0 0 2px rgba(76, 155, 232, 0.5) !important;
+        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%) !important;
+    }
+
+    /* Override global hover colors */
+    * {
+        --primary-color: #4C9BE8 !important;
+    }
+    
+    /* Force Streamlit app variables */
+    .stApp, [data-testid="stAppViewContainer"] {
+        --primary-color: #4C9BE8 !important;
+        --background-color: #0E1117 !important;
+        --secondary-background-color: #1F2937 !important;
+        --text-color: #E6EDF3 !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Styles CSS pour corriger l'encapsulation globale
+st.markdown("""
+<style>
+    /* SOLUTION DIRECTE : Neutraliser le premier conteneur vertical qui englobe tout */
+    .main div[data-testid='stVerticalBlock']:first-child {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
         margin: 0 !important;
-        box-sizing: border-box !important;
-        line-height: 1.4 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        flex-shrink: 0 !important;
-        flex-grow: 1 !important;
     }
     
-    /* Forcer les containers de boutons à avoir la même largeur et hauteur */
-    .action-buttons-container .stDownloadButton,
-    .action-buttons-container .stButton {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-        height: 80px !important;
-        min-height: 80px !important;
-        max-height: 80px !important;
-        display: flex !important;
-        align-items: stretch !important;
-        flex: 1 !important;
+    .main div[data-testid='stVerticalBlock']:first-child:before {
+        display: none !important;
     }
     
-    /* Forcer les divs internes à avoir la même taille */
-    .action-buttons-container .stDownloadButton > div,
-    .action-buttons-container .stButton > div {
-        width: 100% !important;
-        height: 80px !important;
-        min-height: 80px !important;
-        max-height: 80px !important;
-        display: flex !important;
-        align-items: stretch !important;
-        flex: 1 !important;
+    /* Cibler le conteneur principal Streamlit */
+    [data-testid="stAppViewContainer"] > .main .block-container > div:first-child {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
     }
     
-    /* Bouton Télécharger - Vert */
-    .action-buttons-container .stDownloadButton > button {
-        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
-        color: #fff !important;
-    }
-    .action-buttons-container .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #219150 0%, #27ae60 100%) !important;
-        box-shadow: 0 6px 16px rgba(39, 174, 96, 0.25) !important;
-        transform: translateY(-2px) !important;
-    }
-    .action-buttons-container .stDownloadButton > button:active {
-        transform: translateY(0px) !important;
-        box-shadow: 0 2px 8px rgba(39, 174, 96, 0.15) !important;
+    /* CORRECTION FINALE : Boutons système (⚙, ✕) et checkboxes */
+    
+    /* Petits boutons système SEULEMENT (⚙, ✕) - excluant spécifiquement les téléchargements */
+    .stButton > button:not([data-testid="stDownloadButton"]):not([class*="download"]) {
+        background: transparent !important;
+        color: #E6EDF3 !important;
+        border: 1px solid #363746 !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
     }
     
-    /* Bouton Reset - Bleu */
-    .action-buttons-container .stButton > button {
-        background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%) !important;
-        color: #fff !important;
+    .stButton > button:hover:not([data-testid="stDownloadButton"]):not([class*="download"]) {
+        background: rgba(76, 155, 232, 0.1) !important;
+        color: #4C9BE8 !important;
+        border: 1px solid #4C9BE8 !important;
+        transform: none !important;
     }
-    .action-buttons-container .stButton > button:hover {
-        background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%) !important;
-        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25) !important;
-        transform: translateY(-2px) !important;
+    
+    /* RÉAFFIRMER les boutons TÉLÉCHARGER VERTS */
+    .stDownloadButton > button,
+    button[data-testid="stDownloadButton"],
+    button[class*="download"] {
+        background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500 !important;
+        box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3) !important;
+        padding: 0.5rem 1rem !important;
+        transition: all 0.3s ease !important;
     }
-    .action-buttons-container .stButton > button:active {
-        transform: translateY(0px) !important;
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15) !important;
+    
+    .stDownloadButton > button:hover,
+    button[data-testid="stDownloadButton"]:hover,
+    button[class*="download"]:hover {
+        background: linear-gradient(135deg, #2ECC71 0%, #27D177 100%) !important;
+        box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4) !important;
+        transform: translateY(-1px) !important;
+        color: white !important;
+        border: none !important;
+    }
+    
+    /* Checkboxes - les vraies cases à cocher, pas le texte */
+    .stCheckbox input[type="checkbox"]:checked {
+        background-color: #4C9BE8 !important;
+        border-color: #4C9BE8 !important;
+        accent-color: #4C9BE8 !important;
+    }
+    
+    .stCheckbox input[type="checkbox"] {
+        accent-color: #4C9BE8 !important;
+        border-color: #363746 !important;
+    }
+    
+    .stCheckbox input[type="checkbox"]:hover {
+        border-color: #4C9BE8 !important;
+    }
+    
+    /* Empêcher SEULEMENT le surlignage du texte - PAS la checkbox */
+    .stCheckbox label [data-testid="stMarkdownContainer"],
+    .stCheckbox label [data-testid="stMarkdownContainer"] p,
+    .stCheckbox label > div:last-child {
+        color: #E6EDF3 !important;
+        background: none !important;
+    }
+    
+    .stCheckbox label:hover [data-testid="stMarkdownContainer"],
+    .stCheckbox label:hover [data-testid="stMarkdownContainer"] p,
+    .stCheckbox label:hover > div:last-child {
+        color: #E6EDF3 !important;
+        background: none !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -853,6 +784,9 @@ if 'processing_results' not in st.session_state:
 
 if 'reset_app' not in st.session_state:
     st.session_state.reset_app = False
+
+if 'config_collapsed' not in st.session_state:
+    st.session_state.config_collapsed = True
 
 def reset_application():
     st.session_state.reset_app = True
@@ -900,7 +834,7 @@ def main():
         st.session_state.file_uploader_key = 0
     
     try:
-        # En-tête avec logo
+        # En-tête avec logo (en dehors de toute encapsulation)
         st.markdown(
             f'''
             <div class="app-header">
@@ -914,101 +848,165 @@ def main():
             unsafe_allow_html=True
         )
 
-        # Zone de dépôt du fichier PDF
-        st.markdown('''
-            <p class="section-header">
-                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                Sélection du fichier
-            </p>
-        ''', unsafe_allow_html=True)
-        uploaded_file = st.file_uploader(
-            "Choisissez un fichier PDF",
-            type="pdf",
-            help="Déposez votre fichier PDF ici",
-            key=f'file_uploader_{st.session_state.file_uploader_key}'
-        )
+        # SECTION 1: Sélection du fichier PDF
+        with st.container():
+            st.markdown('<span class="file-selection-marker"></span>', unsafe_allow_html=True)
+            st.markdown('''
+                <div style="color: #8B949E; 
+                     font-family: 'Inter', sans-serif; 
+                     font-size: 1rem; 
+                     font-weight: 500; 
+                     margin: 0 0 1.5rem 0; 
+                     display: flex; 
+                     align-items: center; 
+                     gap: 0.5rem;">
+                    <svg style="width: 16px; height: 16px; stroke: #8B949E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Sélection du fichier
+                </div>
+            ''', unsafe_allow_html=True)
+            
+            uploaded_file = st.file_uploader(
+                "Choisissez un fichier PDF",
+                type="pdf",
+                help="Déposez votre fichier PDF ici",
+                key=f'file_uploader_{st.session_state.file_uploader_key}'
+            )
 
         if uploaded_file:
-            # Configuration de la nomenclature
-            st.markdown('''
-                <p class="section-header">
-                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a.997.997 0 01-1.414 0l-7-7A1.997 1.997 0 014 12V7a4 4 0 014-4z"></path>
-                    </svg>
-                    Configuration de la nomenclature
-                </p>
-            ''', unsafe_allow_html=True)
+            # Détection du nom du manuel pour le preview
+            temp_pdf_path = Path(st.session_state.temp_dir) / uploaded_file.name
+            with open(temp_pdf_path, "wb") as f:
+                f.write(uploaded_file.getvalue())
+            processor = LensCRLSimple(debug=False)
+            detected_name = processor._deduce_manual_name(str(temp_pdf_path))
+            temp_pdf_path.unlink()
             
-            # Configuration du préfixe
-            prefix = st.text_input(
-                "Préfixe",
-                value="CRL",
-                help="Préfixe utilisé pour tous les fichiers (par défaut: CRL)"
-            )
-
-            # Détection automatique améliorée du nom du manuel
-            with st.spinner("Détection du nom du manuel..."):
-                # Sauvegarder temporairement le PDF pour la détection
-                temp_pdf_path = Path(st.session_state.temp_dir) / uploaded_file.name
-                with open(temp_pdf_path, "wb") as f:
-                    f.write(uploaded_file.getvalue())
+            # SECTION 2: Configuration avec preview par défaut
+            with st.container():
+                st.markdown('<span class="config-marker"></span>', unsafe_allow_html=True)
                 
-                # Utiliser la nouvelle fonction de détection
-                processor = LensCRLSimple(debug=False)
-                detected_name = processor._deduce_manual_name(str(temp_pdf_path))
+                if st.session_state.config_collapsed:
+                    # État collapsed : Preview discret + bouton settings bien proportionné
+                    st.markdown('''
+                        <div style="color: #8B949E; 
+                             font-family: 'Inter', sans-serif; 
+                             font-size: 0.9rem; 
+                             font-weight: 400; 
+                             margin: 0 0 1rem 0; 
+                             opacity: 0.8;">
+                            Preview
+                        </div>
+                    ''', unsafe_allow_html=True)
+                    
+                    col1, col2 = st.columns([5, 1])
+                    with col1:
+                        # Preview élégant de la nomenclature
+                        st.markdown(
+                            f'''
+                            <div style="background: rgba(13, 17, 23, 0.8); 
+                                 border: 1px solid rgba(76, 155, 232, 0.3);
+                                 border-radius: 8px; 
+                                 padding: 1rem; 
+                                 margin: 0;">
+                                <div style="font-family: 'Courier New', monospace; 
+                                     font-size: 1.1rem; 
+                                     color: #4C9BE8; 
+                                     text-align: center;
+                                     letter-spacing: 0.5px;">CRL-{detected_name}-1.1 n_1.png</div>
+                            </div>
+                            ''',
+                            unsafe_allow_html=True
+                        )
+                    with col2:
+                        # Bouton settings mieux proportionné
+                        if st.button(
+                            "⚙",
+                            key="config_expand",
+                            help="Modifier la configuration",
+                            use_container_width=True
+                        ):
+                            st.session_state.config_collapsed = False
+                            st.rerun()
+                else:
+                    # État expanded : Configuration plus discrète
+                    col1, col2 = st.columns([5, 1])
+                    with col1:
+                        st.markdown('''
+                            <div style="color: #8B949E; 
+                                 font-family: 'Inter', sans-serif; 
+                                 font-size: 1rem; 
+                                 font-weight: 500; 
+                                 margin: 0 0 1.5rem 0; 
+                                 display: flex; 
+                                 align-items: center; 
+                                 gap: 0.5rem;">
+                                <svg style="width: 16px; height: 16px; stroke: #8B949E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                Configuration
+                            </div>
+                        ''', unsafe_allow_html=True)
+                    with col2:
+                        # Bouton pour collapse avec même proportion
+                        if st.button(
+                            "✕",
+                            key="config_collapse", 
+                            help="Masquer la configuration",
+                            use_container_width=True
+                        ):
+                            st.session_state.config_collapsed = True
+                            st.rerun()
+                    
+                    # Configuration du préfixe
+                    prefix = st.text_input(
+                        "Préfixe",
+                        value="CRL",
+                        help="Préfixe utilisé pour tous les fichiers (par défaut: CRL)"
+                    )
+
+                    # Nom du manuel - simplifié
+                    use_detected = st.checkbox(
+                        f"Utiliser le nom détecté : **{detected_name}**", 
+                        value=True,
+                        help="Nom détecté depuis les footers, métadonnées ou nom de fichier"
+                    )
+                    
+                    manual_name = detected_name
+                    if not use_detected:
+                        manual_name = st.text_input(
+                            "Nom personnalisé",
+                            value=detected_name,
+                            help="Ex: PROCSG02, OMA, STC, etc."
+                        )
+
+                    # Preview final simplifié
+                    st.markdown(
+                        f'''
+                        <div style="background: rgba(13, 17, 23, 0.8); 
+                             border: 1px solid rgba(76, 155, 232, 0.3);
+                             border-radius: 8px; 
+                             padding: 1rem; 
+                             margin: 1rem 0;">
+                            <div style="color: #8B949E; font-size: 0.85rem; margin-bottom: 0.5rem;">Aperçu</div>
+                            <div style="font-family: 'Courier New', monospace; 
+                                 font-size: 1.1rem; 
+                                 color: #4C9BE8; 
+                                 text-align: center;
+                                 letter-spacing: 0.5px;">{prefix}-{manual_name}-1.1 n_1.png</div>
+                        </div>
+                        ''',
+                        unsafe_allow_html=True
+                    )
                 
-                # Nettoyer le fichier temporaire
-                temp_pdf_path.unlink()
+                # Définir les valeurs par défaut pour la suite (que la config soit ouverte ou fermée)
+                if st.session_state.config_collapsed:
+                    prefix = "CRL"
+                    manual_name = detected_name
 
-            # Configuration du nom avec affichage du type de détection
-            st.markdown('''
-                <div style="background: linear-gradient(90deg, rgba(46, 125, 50, 0.15), rgba(76, 155, 232, 0.15)); 
-                     border-left: 4px solid #4C9BE8; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;
-                     border: 1px solid rgba(76, 155, 232, 0.3);">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <svg style="width: 16px; height: 16px; color: #4C9BE8;" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                        </svg>
-                        <strong style="color: #E6EDF3;">Nom détecté automatiquement</strong>
-                    </div>
-                    <div style="font-family: 'Courier New', monospace; font-size: 1.1em; color: #4C9BE8; 
-                         background: rgba(13, 17, 23, 0.8); padding: 0.5rem; border-radius: 4px; border-left: 2px solid #4C9BE8;">''' + detected_name + '''</div>
-                </div>
-            ''', unsafe_allow_html=True)
-
-            # Checkbox pour utiliser le nom détecté ou personnalisé
-            use_detected = st.checkbox(
-                f"Utiliser le nom détecté : **{detected_name}**", 
-                value=True,
-                help="Nom détecté depuis les footers, métadonnées ou nom de fichier"
-            )
-            
-            # Champ de saisie personnalisé (affiché seulement si pas de détection automatique)
-            manual_name = detected_name
-            if not use_detected:
-                manual_name = st.text_input(
-                    "Nom personnalisé",
-                    value=detected_name,
-                    help="Ex: PROCSG02, OMA, STC, etc."
-                )
-                st.info(f"Nom utilisé : **{manual_name}**")
-            else:
-                st.success(f"Nom utilisé : **{detected_name}**")
-
-            # Aperçu de la nomenclature
-            st.markdown(
-                f'''
-                <div class="preview-container">
-                    <div class="preview-title">Aperçu de la nomenclature</div>
-                    <div class="preview-code">{prefix}-{manual_name}-1.1 n_1.png</div>
-                </div>
-                ''',
-                unsafe_allow_html=True
-            )
-
-            # Bouton pour lancer le traitement
+            # Bouton pour lancer le traitement (sans box)
             col1, col2, col3 = st.columns([1,2,1])
             with col2:
                 # États du traitement : 'button', 'processing', 'completed'
@@ -1025,31 +1023,6 @@ def main():
 
                 # Spinner CSS pour l'animation personnalisée
                 spinner_html = '''<div class="lds-dual-ring"></div>'''
-                spinner_css = '''
-                <style>
-                .lds-dual-ring {
-                  display: inline-block;
-                  width: 32px;
-                  height: 32px;
-                  vertical-align: middle;
-                }
-                .lds-dual-ring:after {
-                  content: " ";
-                  display: block;
-                  width: 32px;
-                  height: 32px;
-                  margin: 0 auto;
-                  border-radius: 50%;
-                  border: 4px solid #4C9BE8;
-                  border-color: #4C9BE8 transparent #4C9BE8 transparent;
-                  animation: lds-dual-ring 1.1s linear infinite;
-                }
-                @keyframes lds-dual-ring {
-                  0% { transform: rotate(0deg); }
-                  100% { transform: rotate(360deg); }
-                }
-                </style>
-                '''
                 
                 # Icône de succès
                 success_icon = '''
@@ -1078,7 +1051,7 @@ def main():
                 
                 # Affichage selon l'état
                 if st.session_state.treatment_state == 'processing':
-                    st.markdown(spinner_css + f'<div style="display:flex;justify-content:center;align-items:center;height:56px;">{spinner_html}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div style="display:flex;justify-content:center;align-items:center;height:56px;">{spinner_html}</div>', unsafe_allow_html=True)
                 elif st.session_state.treatment_state == 'completed':
                     st.markdown(success_icon, unsafe_allow_html=True)
                 else:  # state == 'button'
@@ -1090,8 +1063,6 @@ def main():
             if process_button:
                 # Passer à l'état processing
                 st.session_state.treatment_state = 'processing'
-                
-                # Forcer un rerun pour afficher l'animation
                 st.rerun()
 
             # Traitement effectif (seulement si en état processing et pas encore traité)
@@ -1105,7 +1076,6 @@ def main():
                 cache_key = (current_file_hash, prefix, manual_name)
                 
                 if 'last_process_key' not in st.session_state or st.session_state.last_process_key != cache_key:
-                    # Supprimer le st.spinner pour utiliser seulement notre animation personnalisée
                     # Nettoyer le dossier de sortie
                     if output_dir.exists():
                         shutil.rmtree(output_dir)
@@ -1127,91 +1097,102 @@ def main():
                 st.session_state.treatment_state = 'completed'
                 st.rerun()
 
-            # Afficher les résultats s'ils existent
-            if 'processing_results' in st.session_state and st.session_state.processing_results:
-                results = st.session_state.processing_results
-                
-                if results.success:
-                    # Affichage des résultats
+        # SECTION 3: Résultats (si disponibles)
+        if 'processing_results' in st.session_state and st.session_state.processing_results:
+            results = st.session_state.processing_results
+            
+            if results.success:
+                # Section des résultats
+                with st.container():
+                    st.markdown('<span class="results-marker"></span>', unsafe_allow_html=True)
                     st.markdown('''
-                        <p class="section-header">
-                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div style="color: #8B949E; 
+                             font-family: 'Inter', sans-serif; 
+                             font-size: 1rem; 
+                             font-weight: 500; 
+                             margin: 0 0 1.5rem 0; 
+                             display: flex; 
+                             align-items: center; 
+                             gap: 0.5rem;">
+                            <svg style="width: 16px; height: 16px; stroke: #8B949E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                             </svg>
                             Résultats
-                        </p>
+                        </div>
                     ''', unsafe_allow_html=True)
                     
                     # Stats principales
-                    st.markdown(
-                        f'''
-                        <div class="stats-container">
-                            <div class="stat-card">
-                                <div class="stat-value">{len(results.images_extracted)}</div>
-                                <div class="stat-label">Images extraites</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">{len(results.images_filtered)}</div>
-                                <div class="stat-label">Images filtrées</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">{len(results.sections_detected)}</div>
-                                <div class="stat-label">Sections détectées</div>
-                            </div>
-                        </div>
-                        ''',
-                        unsafe_allow_html=True
-                    )
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Images extraites", len(results.images_extracted))
+                    with col2:
+                        st.metric("Images filtrées", len(results.images_filtered))
+                    with col3:
+                        st.metric("Sections détectées", len(results.sections_detected))
 
-                    # Boutons d'action directement après les résultats
-                    if results.images_extracted:
+                # Section des actions
+                if results.images_extracted:
+                    with st.container():
+                        st.markdown('<span class="actions-marker"></span>', unsafe_allow_html=True)
                         st.markdown('''
-                            <p class="section-header">
-                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div style="color: #8B949E; 
+                                 font-family: 'Inter', sans-serif; 
+                                 font-size: 1rem; 
+                                 font-weight: 500; 
+                                 margin: 0 0 1.5rem 0; 
+                                 display: flex; 
+                                 align-items: center; 
+                                 gap: 0.5rem;">
+                                <svg style="width: 16px; height: 16px; stroke: #8B949E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                 </svg>
                                 Actions
-                            </p>
+                            </div>
                         ''', unsafe_allow_html=True)
-                        
-                        # Container pour boutons d'action uniformes
-                        st.markdown('<div class="action-buttons-container">', unsafe_allow_html=True)
                         
                         # Préparer les données du ZIP
                         zip_data = create_zip_from_images(results.images_extracted, manual_name)
                         
-                        # BOUTONS NATIFS STREAMLIT en vertical
-                        # Bouton Télécharger tout - en premier
-                        if st.download_button(
-                            label=f"TÉLÉCHARGER {len(results.images_extracted)} IMAGES",
-                            data=zip_data,
-                            file_name=f"{manual_name}_images_completes.zip",
-                            mime="application/zip",
-                            use_container_width=True,
-                            key="download_all_btn"
-                        ):
-                            st.success(f"✅ Téléchargement de {len(results.images_extracted)} images lancé !")
+                        # Boutons d'action
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            if st.download_button(
+                                label=f"TÉLÉCHARGER {len(results.images_extracted)} IMAGES",
+                                data=zip_data,
+                                file_name=f"{manual_name}_images_completes.zip",
+                                mime="application/zip",
+                                use_container_width=True,
+                                key="download_all_btn"
+                            ):
+                                st.success(f"✅ Téléchargement de {len(results.images_extracted)} images lancé !")
                         
-                        # Bouton Nouveau Document - en second
-                        if st.button(
-                            "NOUVEAU DOC",
-                            use_container_width=True,
-                            key="reset_btn"
-                        ):
-                            reset_application()
-                            st.rerun()
-                        
-                        st.markdown('</div>', unsafe_allow_html=True)
+                        with col2:
+                            if st.button(
+                                "NOUVEAU DOC",
+                                use_container_width=True,
+                                key="reset_btn"
+                            ):
+                                reset_application()
+                                st.rerun()
 
-                    # Affichage des sections avec images dans des expanders
-                    if results.stats.get('images_by_section'):
+                # Section des images par section
+                if results.stats.get('images_by_section'):
+                    with st.container():
+                        st.markdown('<span class="images-sections-marker"></span>', unsafe_allow_html=True)
                         st.markdown('''
-                            <p class="section-header">
-                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div style="color: #8B949E; 
+                                 font-family: 'Inter', sans-serif; 
+                                 font-size: 1rem; 
+                                 font-weight: 500; 
+                                 margin: 0 0 1.5rem 0; 
+                                 display: flex; 
+                                 align-items: center; 
+                                 gap: 0.5rem;">
+                                <svg style="width: 16px; height: 16px; stroke: #8B949E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 011-1h1m-1 1v1m0 0H9m10 0V5a2 2 0 00-1-1h-1m1 1v1m0 0H15"></path>
                                 </svg>
                                 Images par section
-                            </p>
+                            </div>
                         ''', unsafe_allow_html=True)
                         
                         # Organiser les images par section
@@ -1238,7 +1219,6 @@ def main():
                                 with col_dl_section:
                                     # Bouton pour télécharger toutes les images de cette section
                                     if count > 1:
-                                        st.markdown('<div class="section-download-btn">', unsafe_allow_html=True)
                                         section_zip = create_zip_from_images(section_images, f"{manual_name}_section_{section}")
                                         st.download_button(
                                             label="↓ ZIP",
@@ -1248,7 +1228,6 @@ def main():
                                             use_container_width=True,
                                             key=f"section_dl_{section}"
                                         )
-                                        st.markdown('</div>', unsafe_allow_html=True)
                                 
                                 # Grille d'images sans séparateur
                                 cols = st.columns(3)
@@ -1256,26 +1235,13 @@ def main():
                                     with cols[idx % 3]:
                                         img_path = img_info['path']
                                         if os.path.exists(img_path):
-                                            # Container moderne pour l'image
-                                            st.markdown('<div class="section-image-container">', unsafe_allow_html=True)
-                                            
-                                            # Image avec un style moderne
                                             st.image(
                                                 img_path,
-                                                caption=None,
+                                                caption=img_info["filename"],
                                                 use_container_width=True
                                             )
-                                            
-                                            # Filename compact avec icône moderne
-                                            st.markdown(
-                                                f'''<div class="image-filename">
-                                                    <span style="color: #4C9BE8;">◦</span> {img_info["filename"]}
-                                                </div>''',
-                                                unsafe_allow_html=True
-                                            )
-                                            
+                                                
                                             # Bouton de téléchargement compact
-                                            st.markdown('<div class="image-download-btn">', unsafe_allow_html=True)
                                             with open(img_path, 'rb') as f:
                                                 st.download_button(
                                                     label="↓",
@@ -1285,21 +1251,14 @@ def main():
                                                     use_container_width=True,
                                                     key=f"img_dl_{section}_{idx}"
                                                 )
-                                            st.markdown('</div>', unsafe_allow_html=True)
-                                            
-                                            st.markdown('</div>', unsafe_allow_html=True)
-                
-                else:
-                    if st.session_state.processing_results:
-                        st.error(f"Erreur lors du traitement: {', '.join(st.session_state.processing_results.errors if st.session_state.processing_results.errors else ['Erreur inconnue'])}")
-                    else:
-                        st.error("Erreur lors du traitement du PDF")
+            else:
+                st.error(f"Erreur lors du traitement: {', '.join(results.errors if results.errors else ['Erreur inconnue'])}")
 
-        # Footer
+        # Footer avec le nouveau style
         st.markdown(
             '''
-            <div class="app-footer">
-                Made with <a href="https://github.com/Orsso/LensCRL" target="_blank">LensCRL</a>
+            <div style="margin-top: 3rem; padding: 1rem; text-align: center; color: #4C9BE8; opacity: 0.8;">
+                Made with <a href="https://github.com/Orsso/LensCRL" target="_blank" style="color: #4C9BE8; text-decoration: none;">LensCRL</a>
             </div>
             ''',
             unsafe_allow_html=True
