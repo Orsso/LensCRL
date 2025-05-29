@@ -404,10 +404,36 @@ class LensCRLSimple:
         return sections[0] if sections else None
     
     def _deduce_manual_name(self, pdf_path: str) -> str:
-        """Déduit le nom du manuel depuis le chemin"""
-        filename = Path(pdf_path).stem
+        """Déduit le nom du manuel depuis le footer, métadonnées puis nom de fichier"""
         
+        # Tentative 1: Chercher dans les footers (priorité)
+        try:
+            if PDF_BACKEND == "pymupdf":
+                doc = fitz.open(pdf_path)
+                footer_name = self._extract_name_from_footer(doc)
+                doc.close()
+                if footer_name:
+                    self.logger.info(f"Nom trouvé dans footer: {footer_name}")
+                    return footer_name
+        except Exception as e:
+            self.logger.warning(f"Erreur extraction footer: {e}")
+        
+        # Tentative 2: Chercher dans les métadonnées PDF
+        try:
+            if PDF_BACKEND == "pymupdf":
+                doc = fitz.open(pdf_path)
+                metadata_name = self._extract_name_from_metadata(doc)
+                doc.close()
+                if metadata_name:
+                    self.logger.info(f"Nom trouvé dans métadonnées: {metadata_name}")
+                    return metadata_name
+        except Exception as e:
+            self.logger.warning(f"Erreur extraction métadonnées: {e}")
+        
+        # Tentative 3: Fallback - Nom de fichier (méthode actuelle)
+        filename = Path(pdf_path).stem
         import re
+        
         patterns = [
             r'^([A-Z]+\d+)',  # PROCSG02
             r'^([A-Z]{2,})',  # OMA, STC
@@ -416,9 +442,132 @@ class LensCRLSimple:
         for pattern in patterns:
             match = re.match(pattern, filename)
             if match:
-                return match.group(1)
+                filename_name = match.group(1)
+                self.logger.info(f"Nom déduit du fichier: {filename_name}")
+                return filename_name
         
-        return filename[:10].upper()
+        # Fallback final
+        fallback_name = filename[:10].upper()
+        self.logger.info(f"Nom fallback: {fallback_name}")
+        return fallback_name
+    
+    def _extract_name_from_footer(self, doc: fitz.Document) -> Optional[str]:
+        """Extrait le nom du manuel depuis les footers des pages"""
+        import re
+        
+        # Analyser les 3 premières pages pour détecter les patterns de footer
+        for page_num in range(min(3, len(doc))):
+            page = doc[page_num]
+            page_height = page.rect.height
+            
+            # Zone footer : 10% du bas de la page
+            footer_y_start = page_height * 0.9
+            
+            blocks = page.get_text("dict")["blocks"]
+            
+            for block in blocks:
+                if "lines" not in block:
+                    continue
+                
+                # Vérifier si le block est dans la zone footer
+                block_y = block["bbox"][1]
+                if block_y < footer_y_start:
+                    continue
+                
+                for line in block["lines"]:
+                    for span in line["spans"]:
+                        text = span["text"].strip()
+                        
+                        # Patterns pour les noms de manuels techniques
+                        patterns = [
+                            r'\b([A-Z]{2,}SG\d+)\b',      # PROCSG02, etc.
+                            r'\b([A-Z]{3,}\d+)\b',        # General format
+                            r'\b([A-Z]{2,}-[A-Z]{2,})\b', # Format avec tiret
+                            r'\b([A-Z]{2,}/[A-Z]{2,})\b', # Format avec slash
+                        ]
+                        
+                        for pattern in patterns:
+                            match = re.search(pattern, text)
+                            if match:
+                                manual_name = match.group(1)
+                                self.logger.debug(f"Nom candidat trouvé dans footer page {page_num + 1}: {manual_name}")
+                                
+                                # Valider que ce n'est pas un faux positif (dates, numéros de page, etc.)
+                                if self._validate_manual_name(manual_name):
+                                    return manual_name
+        
+        return None
+    
+    def _extract_name_from_metadata(self, doc: fitz.Document) -> Optional[str]:
+        """Extrait le nom du manuel depuis les métadonnées PDF"""
+        import re
+        
+        try:
+            metadata = doc.metadata
+            
+            # Chercher dans le titre
+            if metadata.get('title'):
+                title = metadata['title'].strip()
+                patterns = [
+                    r'\b([A-Z]{2,}SG\d+)\b',
+                    r'\b([A-Z]{3,}\d+)\b',
+                    r'\b([A-Z]{2,}-[A-Z]{2,})\b',
+                ]
+                
+                for pattern in patterns:
+                    match = re.search(pattern, title)
+                    if match:
+                        manual_name = match.group(1)
+                        if self._validate_manual_name(manual_name):
+                            return manual_name
+            
+            # Chercher dans le sujet
+            if metadata.get('subject'):
+                subject = metadata['subject'].strip()
+                patterns = [
+                    r'\b([A-Z]{2,}SG\d+)\b',
+                    r'\b([A-Z]{3,}\d+)\b',
+                ]
+                
+                for pattern in patterns:
+                    match = re.search(pattern, subject)
+                    if match:
+                        manual_name = match.group(1)
+                        if self._validate_manual_name(manual_name):
+                            return manual_name
+        
+        except Exception as e:
+            self.logger.warning(f"Erreur lecture métadonnées: {e}")
+        
+        return None
+    
+    def _validate_manual_name(self, name: str) -> bool:
+        """Valide qu'un nom candidat est vraiment un nom de manuel"""
+        import re
+        
+        # Filtrer les faux positifs courants
+        false_positives = [
+            r'^\d{4}$',           # Années (2024, etc.)
+            r'^PAGE\d*$',         # Numéros de page
+            r'^REV\d*$',          # Révisions
+            r'^VER\d*$',          # Versions
+            r'^DOC\d*$',          # Documents génériques
+            r'^\d{1,3}$',         # Numéros simples
+        ]
+        
+        for fp_pattern in false_positives:
+            if re.match(fp_pattern, name):
+                return False
+        
+        # Critères de validation positifs
+        if len(name) < 3 or len(name) > 15:
+            return False
+        
+        # Doit contenir au moins une lettre et éventuellement des chiffres
+        if not re.search(r'[A-Z]', name):
+            return False
+        
+        return True
     
     def _save_image_simple(self, doc: fitz.Document, img_info: Dict, 
                           output_path: Path, manual_name: str, counter: int,

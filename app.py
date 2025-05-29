@@ -778,31 +778,52 @@ def main():
                 help="Préfixe utilisé pour tous les fichiers (par défaut: CRL)"
             )
 
-            # Détecter automatiquement le nom du manuel
-            detected_name = Path(uploaded_file.name).stem.split('-')[0]
-            if not detected_name.isalnum():
-                detected_name = "MANUAL"
+            # Détection automatique améliorée du nom du manuel
+            with st.spinner("Détection du nom du manuel..."):
+                # Sauvegarder temporairement le PDF pour la détection
+                temp_pdf_path = Path(st.session_state.temp_dir) / uploaded_file.name
+                with open(temp_pdf_path, "wb") as f:
+                    f.write(uploaded_file.getvalue())
+                
+                # Utiliser la nouvelle fonction de détection
+                processor = LensCRLSimple(debug=False)
+                detected_name = processor._deduce_manual_name(str(temp_pdf_path))
+                
+                # Nettoyer le fichier temporaire
+                temp_pdf_path.unlink()
 
-            # Configuration du nom - toujours afficher le champ de texte
-            manual_name = st.text_input(
-                "Nom manuel",
-                value=detected_name,
-                help="Ex: PROCSG02, OMA, etc."
-            )
+            # Configuration du nom avec affichage du type de détection
+            st.markdown('''
+                <div style="background: linear-gradient(90deg, #e8f5e8, #f0f8ff); 
+                     border-left: 4px solid #28a745; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <svg style="width: 16px; height: 16px; color: #28a745;" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                        </svg>
+                        <strong>Nom détecté automatiquement</strong>
+                    </div>
+                    <div style="font-family: 'Courier New', monospace; font-size: 1.1em; color: #2d5aa0;">''' + detected_name + '''</div>
+                </div>
+            ''', unsafe_allow_html=True)
 
-            # Checkbox pour utiliser le nom détecté
+            # Checkbox pour utiliser le nom détecté ou personnalisé
             use_detected = st.checkbox(
-                f"Utiliser le nom détecté automatiquement : {detected_name}", 
+                f"Utiliser le nom détecté : **{detected_name}**", 
                 value=True,
-                help="Décochez pour utiliser le nom personnalisé saisi ci-dessus"
+                help="Nom détecté depuis les footers, métadonnées ou nom de fichier"
             )
             
-            # Si checkbox cochée, utiliser le nom détecté
-            if use_detected:
-                manual_name = detected_name
-                st.info(f"Nom utilisé : **{detected_name}**")
-            else:
+            # Champ de saisie personnalisé (affiché seulement si pas de détection automatique)
+            manual_name = detected_name
+            if not use_detected:
+                manual_name = st.text_input(
+                    "Nom personnalisé",
+                    value=detected_name,
+                    help="Ex: PROCSG02, OMA, STC, etc."
+                )
                 st.info(f"Nom utilisé : **{manual_name}**")
+            else:
+                st.success(f"Nom utilisé : **{detected_name}**")
 
             # Aperçu de la nomenclature
             st.markdown(
