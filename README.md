@@ -122,16 +122,6 @@ for pdf in *.pdf; do
 done
 ```
 
-## 🤝 Contributing
-
-If you find a bug or have an improvement idea:
-
-1. Fork the project
-2. Create a branch (`git checkout -b improvement`)
-3. Commit your changes
-4. Push your branch (`git push origin improvement`)
-5. Open a Pull Request
-
 ## 📄 License
 
 MIT License - see `LICENSE` file
