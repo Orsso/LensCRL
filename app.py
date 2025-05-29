@@ -48,7 +48,7 @@ else:
 st.set_page_config(
     page_title="LensCRL Simple",
     page_icon="🔍",
-    layout="wide",
+    layout="centered",
 )
 
 # Styles CSS personnalisés
@@ -735,109 +735,79 @@ st.markdown("""
         text-decoration: none !important;
     }
     
-    /* Boutons d'action principaux - DESIGN FLAT MODERNE */
+    /* Container des boutons d'action principaux : vertical, occupe toute la largeur */
     .action-buttons-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
         margin: 2.5rem auto;
-        padding: 1rem;
-        max-width: 800px;
+        padding: 0 0.5rem;
+        max-width: 700px;
         width: 100%;
     }
     
-    /* GROS BOUTONS FLAT DESIGN - Moderne et propre */
+    /* BOUTONS PRINCIPAUX - Flat, massifs, très visibles */
     div[class*="main-download-btn"] button,
     div[class*="main-reset-btn"] button {
-        height: 140px !important;
-        min-height: 140px !important;
-        font-size: 1.3rem !important;
-        font-weight: 700 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        height: 100px !important;
+        min-height: 100px !important;
+        font-size: 2.1rem !important;
+        font-weight: 900 !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.15em !important;
-        border-radius: 8px !important;
+        letter-spacing: 0.12em !important;
+        border-radius: 14px !important;
         padding: 2rem 1.5rem !important;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
         border: none !important;
         position: relative !important;
         overflow: hidden !important;
         font-family: 'Inter', sans-serif !important;
         cursor: pointer !important;
-        width: 100% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         text-align: center !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.10) !important;
+        margin: 0 auto !important;
     }
     
-    /* Bouton télécharger - Vert flat moderne */
+    /* Download - vert flat */
     div[class*="main-download-btn"] button {
-        background: #2ECC71 !important;
-        color: white !important;
+        background: #27ae60 !important;
+        color: #fff !important;
     }
-    
-    div[class*="main-download-btn"] button::before {
-        content: '' !important;
-        position: absolute !important;
-        left: 25px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        width: 28px !important;
-        height: 28px !important;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10'/%3E%3C/svg%3E") !important;
-        background-size: contain !important;
-        background-repeat: no-repeat !important;
-        opacity: 0.9 !important;
-    }
-    
     div[class*="main-download-btn"] button:hover {
-        background: #27AE60 !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 20px rgba(46, 204, 113, 0.25) !important;
+        background: #219150 !important;
+        box-shadow: 0 6px 24px rgba(39, 174, 96, 0.18) !important;
+        transform: translateY(-2px) scale(1.01) !important;
     }
     
-    div[class*="main-download-btn"] button:active {
-        transform: translateY(0) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-    }
-    
-    /* Bouton nouveau document - Rouge flat moderne */
+    /* Reset - rouge flat */
     div[class*="main-reset-btn"] button {
-        background: #E74C3C !important;
-        color: white !important;
+        background: #e74c3c !important;
+        color: #fff !important;
     }
-    
-    div[class*="main-reset-btn"] button::before {
-        content: '' !important;
-        position: absolute !important;
-        left: 25px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        width: 28px !important;
-        height: 28px !important;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m0-6h6m-6 0H6'/%3E%3C/svg%3E") !important;
-        background-size: contain !important;
-        background-repeat: no-repeat !important;
-        opacity: 0.9 !important;
-    }
-    
     div[class*="main-reset-btn"] button:hover {
-        background: #C0392B !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 20px rgba(231, 76, 60, 0.25) !important;
+        background: #c0392b !important;
+        box-shadow: 0 6px 24px rgba(231, 76, 60, 0.18) !important;
+        transform: translateY(-2px) scale(1.01) !important;
     }
     
-    div[class*="main-reset-btn"] button:active {
-        transform: translateY(0) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-    }
-    
-    /* Effet de focus pour accessibilité */
-    div[class*="main-download-btn"] button:focus,
-    div[class*="main-reset-btn"] button:focus {
-        outline: 3px solid rgba(76, 155, 232, 0.5) !important;
-        outline-offset: 2px !important;
+    /* Responsive : sur mobile, moins de hauteur */
+    @media (max-width: 600px) {
+        .action-buttons-container {
+            max-width: 98vw;
+            gap: 1.2rem;
+        }
+        div[class*="main-download-btn"] button,
+        div[class*="main-reset-btn"] button {
+            height: 64px !important;
+            min-height: 64px !important;
+            font-size: 1.1rem !important;
+            padding: 1rem 0.5rem !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
