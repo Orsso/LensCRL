@@ -443,6 +443,69 @@ st.markdown("""
         border-radius: 12px;
         border: 1px solid rgba(76, 155, 232, 0.3);
         box-shadow: 0 4px 16px rgba(76, 155, 232, 0.15);
+        background: linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(55, 65, 81, 0.6) 100%);
+    }
+    
+    /* Force dark theme on all alert content */
+    .stAlert, .stAlert * {
+        color: #E6EDF3 !important;
+        background-color: transparent !important;
+    }
+    
+    /* Success messages with green accent */
+    .stSuccess {
+        border-color: rgba(46, 125, 50, 0.5) !important;
+        background: linear-gradient(135deg, rgba(46, 125, 50, 0.15) 0%, rgba(76, 155, 232, 0.1) 100%) !important;
+    }
+    
+    /* Info messages with blue accent */
+    .stInfo {
+        border-color: rgba(76, 155, 232, 0.5) !important;
+        background: linear-gradient(135deg, rgba(76, 155, 232, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%) !important;
+    }
+    
+    /* Warning/Error messages */
+    .stWarning {
+        border-color: rgba(245, 158, 11, 0.5) !important;
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.1) 100%) !important;
+    }
+    
+    .stError {
+        border-color: rgba(239, 68, 68, 0.5) !important;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(248, 113, 113, 0.1) 100%) !important;
+    }
+    
+    /* Checkbox label text color fix */
+    .stCheckbox > label, .stCheckbox > label * {
+        color: #E6EDF3 !important;
+    }
+    
+    /* Text input labels */
+    .stTextInput > label, .stTextInput > label * {
+        color: #E6EDF3 !important;
+    }
+    
+    /* File uploader labels and help text */
+    .stFileUploader > label, .stFileUploader > label *,
+    .stFileUploader > div, .stFileUploader > div * {
+        color: #E6EDF3 !important;
+    }
+    
+    /* Spinner text */
+    .stSpinner > div {
+        color: #E6EDF3 !important;
+    }
+    
+    /* All paragraph and div text */
+    p, div, span, label {
+        color: #E6EDF3 !important;
+    }
+    
+    /* Force all Streamlit widget text to be visible */
+    [data-testid="stMarkdownContainer"] p,
+    [data-testid="stMarkdownContainer"] div,
+    [data-testid="stMarkdownContainer"] span {
+        color: #E6EDF3 !important;
     }
     
     /* Images dans les sections - style moderne et compact */
@@ -794,15 +857,17 @@ def main():
 
             # Configuration du nom avec affichage du type de détection
             st.markdown('''
-                <div style="background: linear-gradient(90deg, #e8f5e8, #f0f8ff); 
-                     border-left: 4px solid #28a745; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;">
+                <div style="background: linear-gradient(90deg, rgba(46, 125, 50, 0.15), rgba(76, 155, 232, 0.15)); 
+                     border-left: 4px solid #4C9BE8; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;
+                     border: 1px solid rgba(76, 155, 232, 0.3);">
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <svg style="width: 16px; height: 16px; color: #28a745;" fill="currentColor" viewBox="0 0 20 20">
+                        <svg style="width: 16px; height: 16px; color: #4C9BE8;" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
                         </svg>
-                        <strong>Nom détecté automatiquement</strong>
+                        <strong style="color: #E6EDF3;">Nom détecté automatiquement</strong>
                     </div>
-                    <div style="font-family: 'Courier New', monospace; font-size: 1.1em; color: #2d5aa0;">''' + detected_name + '''</div>
+                    <div style="font-family: 'Courier New', monospace; font-size: 1.1em; color: #4C9BE8; 
+                         background: rgba(13, 17, 23, 0.8); padding: 0.5rem; border-radius: 4px; border-left: 2px solid #4C9BE8;">''' + detected_name + '''</div>
                 </div>
             ''', unsafe_allow_html=True)
 
