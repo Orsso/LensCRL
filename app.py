@@ -820,6 +820,32 @@ st.markdown("""
             padding: 1rem 0.5rem !important;
         }
     }
+    
+    /* Boutons d'action principaux : couleur ciblée par position DOM */
+    .action-buttons-container .element-container:nth-of-type(1) button {
+        background: #27ae60 !important;
+        color: #fff !important;
+        border: none !important;
+        font-weight: 900 !important;
+        font-size: 2rem !important;
+        transition: background 0.18s, box-shadow 0.18s;
+    }
+    .action-buttons-container .element-container:nth-of-type(1) button:hover {
+        background: #219150 !important;
+        box-shadow: 0 6px 24px rgba(39, 174, 96, 0.18) !important;
+    }
+    .action-buttons-container .element-container:nth-of-type(2) button {
+        background: #e74c3c !important;
+        color: #fff !important;
+        border: none !important;
+        font-weight: 900 !important;
+        font-size: 2rem !important;
+        transition: background 0.18s, box-shadow 0.18s;
+    }
+    .action-buttons-container .element-container:nth-of-type(2) button:hover {
+        background: #c0392b !important;
+        box-shadow: 0 6px 24px rgba(231, 76, 60, 0.18) !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
