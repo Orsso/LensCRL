@@ -823,26 +823,7 @@ st.markdown("""
         max-height: 75px !important;
     }
     
-    /* Icônes dans les boutons */
-    .main-download-btn .stDownloadButton > button::before {
-        content: "";
-        width: 20px;
-        height: 20px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4'/%3E%3C/svg%3E") !important;
-        background-repeat: no-repeat !important;
-        background-size: contain !important;
-        margin-right: 0.5rem !important;
-    }
-    
-    .main-reset-btn .stButton > button::before {
-        content: "";
-        width: 20px;
-        height: 20px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'/%3E%3C/svg%3E") !important;
-        background-repeat: no-repeat !important;
-        background-size: contain !important;
-        margin-right: 0.5rem !important;
-    }
+    /* Note: Icônes ajoutées directement dans les labels des boutons via emojis */
 </style>
 """, unsafe_allow_html=True)
 
@@ -879,8 +860,9 @@ def process_pdf(pdf_content, output_dir, manual_name, debug_mode, original_filen
     with open(pdf_path, "wb") as f:
         f.write(pdf_content)
 
-    # Initialisation et exécution de LensCRL
-    processor = LensCRLSimple(debug=debug_mode)
+    # Initialisation et exécution de LensCRL - DEBUG ACTIVÉ PAR DÉFAUT
+    processor = LensCRLSimple(debug=True)
+    st.write("🔍 **Mode debug activé** - Vérifiez la console pour les détails")
     return processor.extract_images(
         str(pdf_path),
         str(output_dir),
@@ -1099,6 +1081,9 @@ def main():
                         
                         # Container pour boutons d'action uniformes
                         st.markdown('<div class="action-buttons-container">', unsafe_allow_html=True)
+                        
+                        # Debug info
+                        st.info("🔍 **Debug**: Boutons avec hauteur 75px, border-radius 16px, font-size 1.2rem")
                         
                         col1, col2 = st.columns(2, gap="large")
                         with col1:
