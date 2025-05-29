@@ -15,6 +15,7 @@ import shutil
 import base64
 from assets.logo import LOGO_SVG
 import sys
+import streamlit.components.v1 as components
 
 # Try to import PyMuPDF first, fallback to pypdfium2 for Streamlit Cloud compatibility
 PDF_LIBRARY = None
@@ -739,112 +740,106 @@ st.markdown("""
     .action-buttons-container {
         display: flex;
         flex-direction: column;
-        gap: 2.5rem;
-        margin: 2.5rem auto;
-        padding: 0 0.5rem;
-        max-width: 700px;
+        gap: 1rem;
+        margin: 0rem auto 1.5rem auto;
+        padding: 0;
+        max-width: 500px;
         width: 100%;
     }
     
-    /* BOUTONS PRINCIPAUX - Flat, massifs, très visibles, avec relief premium */
-    div[class*="main-download-btn"] button,
-    div[class*="main-reset-btn"] button {
+    /* Supprimer COMPLETEMENT l'espacement par défaut de Streamlit */
+    .action-buttons-container .element-container {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* BOUTONS PRINCIPAUX - Cibler directement les boutons Streamlit */
+    .action-buttons-container .stDownloadButton > button,
+    .action-buttons-container .stButton > button {
         width: 100% !important;
-        min-width: 0 !important;
-        height: 150px !important;
-        min-height: 150px !important;
-        font-size: 2.5rem !important;
-        font-weight: 900 !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: 80px !important;
+        min-height: 80px !important;
+        max-height: 80px !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.12em !important;
-        border-radius: 22px !important;
-        padding: 2.5rem 1.5rem !important;
-        transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        border: 1.5px solid #eaf6f9 !important;
-        position: relative !important;
-        overflow: hidden !important;
-        font-family: 'Inter', sans-serif !important;
+        letter-spacing: 0.08em !important;
+        border-radius: 12px !important;
+        padding: 1rem !important;
+        transition: all 0.2s ease !important;
+        border: 2px solid transparent !important;
         cursor: pointer !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         text-align: center !important;
-        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18), 0 1.5px 0 #fff inset !important;
-        margin: 0 auto !important;
-        background-clip: padding-box !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        line-height: 1.4 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        flex-shrink: 0 !important;
+        flex-grow: 1 !important;
     }
     
-    div[class*="main-download-btn"] button {
-        background: #27ae60 !important;
-        color: #fff !important;
-    }
-    div[class*="main-download-btn"] button:hover {
-        background: #219150 !important;
-        box-shadow: 0 16px 48px rgba(39, 174, 96, 0.22), 0 1.5px 0 #fff inset !important;
-        transform: translateY(-3px) scale(1.01) !important;
-        border-color: #d4f6e6 !important;
-    }
-    div[class*="main-download-btn"] button:active {
-        box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10) !important;
-        transform: translateY(2px) scale(0.99) !important;
-        border-color: #b7e7d0 !important;
+    /* Forcer les containers de boutons à avoir la même largeur et hauteur */
+    .action-buttons-container .stDownloadButton,
+    .action-buttons-container .stButton {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        height: 80px !important;
+        min-height: 80px !important;
+        max-height: 80px !important;
+        display: flex !important;
+        align-items: stretch !important;
+        flex: 1 !important;
     }
     
-    div[class*="main-reset-btn"] button {
-        background: #e74c3c !important;
-        color: #fff !important;
-    }
-    div[class*="main-reset-btn"] button:hover {
-        background: #c0392b !important;
-        box-shadow: 0 16px 48px rgba(231, 76, 60, 0.22), 0 1.5px 0 #fff inset !important;
-        transform: translateY(-3px) scale(1.01) !important;
-        border-color: #f9eaea !important;
-    }
-    div[class*="main-reset-btn"] button:active {
-        box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10) !important;
-        transform: translateY(2px) scale(0.99) !important;
-        border-color: #f3b7b7 !important;
+    /* Forcer les divs internes à avoir la même taille */
+    .action-buttons-container .stDownloadButton > div,
+    .action-buttons-container .stButton > div {
+        width: 100% !important;
+        height: 80px !important;
+        min-height: 80px !important;
+        max-height: 80px !important;
+        display: flex !important;
+        align-items: stretch !important;
+        flex: 1 !important;
     }
     
-    /* Responsive : sur mobile, moins de hauteur */
-    @media (max-width: 600px) {
-        .action-buttons-container {
-            max-width: 98vw;
-            gap: 1.2rem;
-        }
-        div[class*="main-download-btn"] button,
-        div[class*="main-reset-btn"] button {
-            height: 80px !important;
-            min-height: 80px !important;
-            font-size: 1.2rem !important;
-            padding: 1rem 0.5rem !important;
-        }
+    /* Bouton Télécharger - Vert */
+    .action-buttons-container .stDownloadButton > button {
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%) !important;
+        color: #fff !important;
+    }
+    .action-buttons-container .stDownloadButton > button:hover {
+        background: linear-gradient(135deg, #219150 0%, #27ae60 100%) !important;
+        box-shadow: 0 6px 16px rgba(39, 174, 96, 0.25) !important;
+        transform: translateY(-2px) !important;
+    }
+    .action-buttons-container .stDownloadButton > button:active {
+        transform: translateY(0px) !important;
+        box-shadow: 0 2px 8px rgba(39, 174, 96, 0.15) !important;
     }
     
-    /* Boutons d'action principaux : couleur ciblée par position DOM */
-    .action-buttons-container .element-container:nth-of-type(1) button {
-        background: #27ae60 !important;
+    /* Bouton Reset - Bleu */
+    .action-buttons-container .stButton > button {
+        background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%) !important;
         color: #fff !important;
-        border: none !important;
-        font-weight: 900 !important;
-        font-size: 2rem !important;
-        transition: background 0.18s, box-shadow 0.18s;
     }
-    .action-buttons-container .element-container:nth-of-type(1) button:hover {
-        background: #219150 !important;
-        box-shadow: 0 6px 24px rgba(39, 174, 96, 0.18) !important;
+    .action-buttons-container .stButton > button:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%) !important;
+        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25) !important;
+        transform: translateY(-2px) !important;
     }
-    .action-buttons-container .element-container:nth-of-type(2) button {
-        background: #e74c3c !important;
-        color: #fff !important;
-        border: none !important;
-        font-weight: 900 !important;
-        font-size: 2rem !important;
-        transition: background 0.18s, box-shadow 0.18s;
-    }
-    .action-buttons-container .element-container:nth-of-type(2) button:hover {
-        background: #c0392b !important;
-        box-shadow: 0 6px 24px rgba(231, 76, 60, 0.18) !important;
+    .action-buttons-container .stButton > button:active {
+        transform: translateY(0px) !important;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -861,7 +856,7 @@ if 'reset_app' not in st.session_state:
 
 def reset_application():
     st.session_state.reset_app = True
-    st.session_state.is_processing = False
+    st.session_state.treatment_state = 'button'  # Remettre à l'état initial
     # Incrémenter la clé du file uploader pour le forcer à se reset
     if 'file_uploader_key' not in st.session_state:
         st.session_state.file_uploader_key = 0
@@ -896,7 +891,7 @@ def main():
     if st.session_state.get('reset_app', False):
         st.session_state.processing_results = None
         st.session_state.last_process_key = None
-        st.session_state.is_processing = False
+        st.session_state.treatment_state = 'button'  # Reset à l'état initial
         st.session_state.reset_app = False
         st.rerun()
     
@@ -1016,11 +1011,19 @@ def main():
             # Bouton pour lancer le traitement
             col1, col2, col3 = st.columns([1,2,1])
             with col2:
-                # État de traitement
-                if 'is_processing' not in st.session_state:
-                    st.session_state.is_processing = False
+                # États du traitement : 'button', 'processing', 'completed'
+                if 'treatment_state' not in st.session_state:
+                    st.session_state.treatment_state = 'button'
                 
-                # Spinner CSS
+                # Détecter les changements de configuration pour réactiver le bouton
+                current_config = (uploaded_file.name if uploaded_file else None, prefix, manual_name)
+                if 'last_config' not in st.session_state:
+                    st.session_state.last_config = current_config
+                elif st.session_state.last_config != current_config:
+                    st.session_state.treatment_state = 'button'
+                    st.session_state.last_config = current_config
+
+                # Spinner CSS pour l'animation personnalisée
                 spinner_html = '''<div class="lds-dual-ring"></div>'''
                 spinner_css = '''
                 <style>
@@ -1048,19 +1051,51 @@ def main():
                 </style>
                 '''
                 
-                if st.session_state.is_processing:
+                # Icône de succès
+                success_icon = '''
+                <div style="display:flex;justify-content:center;align-items:center;height:56px;">
+                    <div style="background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%); 
+                         border-radius: 50%; width: 56px; height: 56px; 
+                         display: flex; align-items: center; justify-content: center;
+                         box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+                         animation: successPulse 0.6s ease-out;">
+                        <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                </div>
+                <style>
+                @keyframes successPulse {
+                    0% { transform: scale(0.8); opacity: 0; }
+                    50% { transform: scale(1.1); }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+                </style>
+                '''
+                
+                # Initialiser process_button par défaut
+                process_button = False
+                
+                # Affichage selon l'état
+                if st.session_state.treatment_state == 'processing':
                     st.markdown(spinner_css + f'<div style="display:flex;justify-content:center;align-items:center;height:56px;">{spinner_html}</div>', unsafe_allow_html=True)
-                else:
+                elif st.session_state.treatment_state == 'completed':
+                    st.markdown(success_icon, unsafe_allow_html=True)
+                else:  # state == 'button'
                     process_button = st.button(
                         "Lancer le traitement", 
-                        use_container_width=True,
-                        disabled=st.session_state.is_processing
+                        use_container_width=True
                     )
-                
-                if not st.session_state.is_processing and 'process_button' in locals() and process_button:
-                    st.session_state.is_processing = True
 
             if process_button:
+                # Passer à l'état processing
+                st.session_state.treatment_state = 'processing'
+                
+                # Forcer un rerun pour afficher l'animation
+                st.rerun()
+
+            # Traitement effectif (seulement si en état processing et pas encore traité)
+            if st.session_state.treatment_state == 'processing':
                 # Création du dossier de sortie
                 output_dir = Path(st.session_state.temp_dir) / "output"
                 output_dir.mkdir(exist_ok=True)
@@ -1070,23 +1105,27 @@ def main():
                 cache_key = (current_file_hash, prefix, manual_name)
                 
                 if 'last_process_key' not in st.session_state or st.session_state.last_process_key != cache_key:
-                    with st.spinner("Traitement en cours..."):
-                        # Nettoyer le dossier de sortie
-                        if output_dir.exists():
-                            shutil.rmtree(output_dir)
-                        output_dir.mkdir(exist_ok=True)
-                        
-                        # Traiter le PDF
-                        results = process_pdf(
-                            uploaded_file.getvalue(),
-                            output_dir,
-                            manual_name,
-                            False,  # debug mode désactivé
-                            uploaded_file.name,
-                            prefix
-                        )
-                        st.session_state.processing_results = results
-                        st.session_state.last_process_key = cache_key
+                    # Supprimer le st.spinner pour utiliser seulement notre animation personnalisée
+                    # Nettoyer le dossier de sortie
+                    if output_dir.exists():
+                        shutil.rmtree(output_dir)
+                    output_dir.mkdir(exist_ok=True)
+                    
+                    # Traiter le PDF
+                    results = process_pdf(
+                        uploaded_file.getvalue(),
+                        output_dir,
+                        manual_name,
+                        False,  # debug mode désactivé
+                        uploaded_file.name,
+                        prefix
+                    )
+                    st.session_state.processing_results = results
+                    st.session_state.last_process_key = cache_key
+                
+                # Passer à l'état completed après le traitement
+                st.session_state.treatment_state = 'completed'
+                st.rerun()
 
             # Afficher les résultats s'ils existent
             if 'processing_results' in st.session_state and st.session_state.processing_results:
@@ -1138,29 +1177,29 @@ def main():
                         # Container pour boutons d'action uniformes
                         st.markdown('<div class="action-buttons-container">', unsafe_allow_html=True)
                         
-                        col1, col2 = st.columns(2, gap="large")
-                        with col1:
-                            st.markdown('<div class="main-download-btn">', unsafe_allow_html=True)
-                            zip_data = create_zip_from_images(results.images_extracted, manual_name)
-                            st.download_button(
-                                label="TÉLÉCHARGER TOUT",
-                                data=zip_data,
-                                file_name=f"{manual_name}_images_completes.zip",
-                                mime="application/zip",
-                                use_container_width=True,
-                                help=f"Télécharger {len(results.images_extracted)} images en ZIP"
-                            )
-                            st.markdown('</div>', unsafe_allow_html=True)
-                            
-                        with col2:
-                            st.markdown('<div class="main-reset-btn">', unsafe_allow_html=True)
-                            st.button(
-                                "NOUVEAU DOCUMENT", 
-                                on_click=reset_application, 
-                                use_container_width=True,
-                                help="Recommencer avec un nouveau PDF"
-                            )
-                            st.markdown('</div>', unsafe_allow_html=True)
+                        # Préparer les données du ZIP
+                        zip_data = create_zip_from_images(results.images_extracted, manual_name)
+                        
+                        # BOUTONS NATIFS STREAMLIT en vertical
+                        # Bouton Télécharger tout - en premier
+                        if st.download_button(
+                            label=f"TÉLÉCHARGER {len(results.images_extracted)} IMAGES",
+                            data=zip_data,
+                            file_name=f"{manual_name}_images_completes.zip",
+                            mime="application/zip",
+                            use_container_width=True,
+                            key="download_all_btn"
+                        ):
+                            st.success(f"✅ Téléchargement de {len(results.images_extracted)} images lancé !")
+                        
+                        # Bouton Nouveau Document - en second
+                        if st.button(
+                            "NOUVEAU DOC",
+                            use_container_width=True,
+                            key="reset_btn"
+                        ):
+                            reset_application()
+                            st.rerun()
                         
                         st.markdown('</div>', unsafe_allow_html=True)
 
