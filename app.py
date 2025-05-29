@@ -741,109 +741,62 @@ st.markdown("""
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
         margin: 2.5rem 0;
-        padding: 1.5rem;
+        padding: 1rem;
     }
     
-    /* Download button - GROS BOUTON CARRÉ VERT */
+    /* Download button - GROS BOUTON VERT */
     .main-download-btn .stDownloadButton > button {
-        background: linear-gradient(135deg, #16A085 0%, #27AE60 100%) !important;
+        background: #27AE60 !important;
         color: white !important;
         border: none !important;
-        border-radius: 20px !important;
-        padding: 2rem !important;
+        border-radius: 15px !important;
+        padding: 1.5rem !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 700 !important;
-        font-size: 1.4rem !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-        box-shadow: 0 12px 24px rgba(22, 160, 133, 0.4) !important;
+        font-size: 1.2rem !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 8px 16px rgba(39, 174, 96, 0.3) !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
+        letter-spacing: 0.05em !important;
         width: 100% !important;
-        height: 100px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 1rem !important;
-        position: relative !important;
-        overflow: hidden !important;
+        height: 80px !important;
+        min-height: 80px !important;
+        max-height: 80px !important;
     }
     
     .main-download-btn .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%) !important;
-        box-shadow: 0 16px 32px rgba(22, 160, 133, 0.6) !important;
-        transform: translateY(-6px) scale(1.02) !important;
+        background: #2ECC71 !important;
+        box-shadow: 0 12px 24px rgba(39, 174, 96, 0.4) !important;
+        transform: translateY(-3px) !important;
         color: white !important;
     }
     
-    .main-download-btn .stDownloadButton > button:active {
-        transform: translateY(-3px) scale(1.01) !important;
-        box-shadow: 0 8px 16px rgba(22, 160, 133, 0.4) !important;
-        color: white !important;
-    }
-    
-    /* Reset button - GROS BOUTON CARRÉ ROUGE */
+    /* Reset button - GROS BOUTON ROUGE */
     .main-reset-btn .stButton > button {
-        background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%) !important;
+        background: #E74C3C !important;
         color: white !important;
         border: none !important;
-        border-radius: 20px !important;
-        padding: 2rem !important;
+        border-radius: 15px !important;
+        padding: 1.5rem !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 700 !important;
-        font-size: 1.4rem !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-        box-shadow: 0 12px 24px rgba(231, 76, 60, 0.4) !important;
+        font-size: 1.2rem !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 8px 16px rgba(231, 76, 60, 0.3) !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
+        letter-spacing: 0.05em !important;
         width: 100% !important;
-        height: 100px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 1rem !important;
-        position: relative !important;
-        overflow: hidden !important;
+        height: 80px !important;
+        min-height: 80px !important;
+        max-height: 80px !important;
     }
     
     .main-reset-btn .stButton > button:hover {
-        background: linear-gradient(135deg, #C0392B 0%, #A93226 100%) !important;
-        box-shadow: 0 16px 32px rgba(231, 76, 60, 0.6) !important;
-        transform: translateY(-6px) scale(1.02) !important;
+        background: #C0392B !important;
+        box-shadow: 0 12px 24px rgba(231, 76, 60, 0.4) !important;
+        transform: translateY(-3px) !important;
         color: white !important;
     }
-    
-    .main-reset-btn .stButton > button:active {
-        transform: translateY(-3px) scale(1.01) !important;
-        box-shadow: 0 8px 16px rgba(231, 76, 60, 0.4) !important;
-        color: white !important;
-    }
-    
-    /* Force la même hauteur pour tous les boutons d'action */
-    .main-download-btn .stDownloadButton > button,
-    .main-reset-btn .stButton > button {
-        min-height: 100px !important;
-        max-height: 100px !important;
-    }
-    
-    /* Ajout d'effets de brillance */
-    .main-download-btn .stDownloadButton > button::after,
-    .main-reset-btn .stButton > button::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s;
-    }
-    
-    .main-download-btn .stDownloadButton > button:hover::after,
-    .main-reset-btn .stButton > button:hover::after {
-        left: 100%;
-    }
-    
-    /* Note: Icônes ajoutées directement dans les labels des boutons via emojis */
 </style>
 """, unsafe_allow_html=True)
 
@@ -880,9 +833,8 @@ def process_pdf(pdf_content, output_dir, manual_name, debug_mode, original_filen
     with open(pdf_path, "wb") as f:
         f.write(pdf_content)
 
-    # Initialisation et exécution de LensCRL - DEBUG ACTIVÉ PAR DÉFAUT
+    # Initialisation et exécution de LensCRL avec debug console seulement
     processor = LensCRLSimple(debug=True)
-    st.write("🔍 **Mode debug activé** - Vérifiez la console pour les détails")
     return processor.extract_images(
         str(pdf_path),
         str(output_dir),
@@ -1106,18 +1058,6 @@ def main():
                         with col1:
                             st.markdown('<div class="main-download-btn">', unsafe_allow_html=True)
                             zip_data = create_zip_from_images(results.images_extracted, manual_name)
-                            
-                            # Bouton avec icône SVG intégrée
-                            download_label = '''
-                            <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
-                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                                </svg>
-                                <span>Télécharger</span>
-                            </div>
-                            '''
-                            st.markdown(download_label, unsafe_allow_html=True)
-                            
                             st.download_button(
                                 label="TÉLÉCHARGER TOUT",
                                 data=zip_data,
@@ -1130,18 +1070,6 @@ def main():
                             
                         with col2:
                             st.markdown('<div class="main-reset-btn">', unsafe_allow_html=True)
-                            
-                            # Bouton avec icône SVG intégrée  
-                            reset_label = '''
-                            <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
-                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                </svg>
-                                <span>Nouveau scan</span>
-                            </div>
-                            '''
-                            st.markdown(reset_label, unsafe_allow_html=True)
-                            
                             st.button(
                                 "NOUVEAU DOCUMENT", 
                                 on_click=reset_application, 
