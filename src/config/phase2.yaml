@@ -1,0 +1,107 @@
+# Configuration Phase 2 - Robustesse & Configuration adaptative
+# ===============================================================
+
+# Configuration détection sections avancée
+section_detection:
+  font_size_range: [10.0, 18.0]  # Plage élargie
+  patterns:
+    - "^\\d+\\.\\s*-\\s*"         # "1. - "
+    - "^\\d+\\.\\d+\\s*-\\s*"     # "1.1 - "  
+    - "^\\d+\\.\\d+\\.\\d+\\s*-\\s*" # "1.1.1 - "
+    - "^[A-Z][^\\s]*\\s*\\d*\\s*-\\s*" # "ANNEXE 1 - "
+    - "^(OBJECTIF|DOMAINE|INTRODUCTION|CONCLUSION|RÉSUMÉ)\\s*"
+  require_bold: false  # Plus flexible
+  min_font_size_threshold: 10.0
+  position_tolerance: 15.0
+
+# Configuration analyseur spatial
+spatial_analysis:
+  column_detection:
+    min_gap_width: 25.0
+    text_threshold: 8
+    enable_multi_column: true
+  
+  image_association:
+    max_distance_pixels: 250.0
+    same_column_bonus: 0.6
+    text_context_radius: 60.0
+    position_weight: 0.4
+    text_context_weight: 0.3
+    column_weight: 0.3
+  
+  layout_analysis:
+    margin_detection: true
+    multi_column_support: true
+    content_zone_analysis: true
+
+# Configuration validation images
+image_validation:
+  size_constraints:
+    min_width: 40
+    min_height: 40
+    max_width: 3000
+    max_height: 3000
+    min_area: 3000
+  
+  aspect_ratio:
+    min_ratio: 0.05
+    max_ratio: 20.0
+  
+  content_analysis:
+    enable_duplicate_detection: true
+    enable_decoration_filter: true
+    min_complexity_score: 0.2
+    enable_type_classification: true
+  
+  quality_thresholds:
+    min_quality_score: 0.4
+    min_relevance_score: 0.3
+  
+  filtering:
+    exclude_headers_footers: true
+    exclude_margins: true
+    margin_threshold: 0.08  # 8% de la page
+
+# Configuration détection adaptative
+adaptive_detection:
+  pattern_learning:
+    min_samples: 2
+    confidence_threshold: 0.6
+    adaptation_enabled: true
+    learning_iterations: 2
+  
+  adaptive_thresholds:
+    font_size_tolerance: 3.0
+    position_tolerance: 12.0
+    frequency_threshold: 0.25
+  
+  candidate_filtering:
+    min_confidence: 0.4
+    max_candidates_per_page: 15
+    text_length_range: [3, 300]
+  
+  refinement:
+    enable_cross_validation: true
+    enable_context_analysis: true
+    consolidation_distance: 8.0
+
+# Configuration globale Phase 2
+global:
+  processing_mode: "adaptive"
+  enable_spatial_analysis: true
+  enable_image_validation: true
+  enable_advanced_association: true
+  
+  logging:
+    level: "INFO"
+    detailed_analysis: true
+    performance_metrics: true
+  
+  performance:
+    batch_processing: true
+    parallel_analysis: false  # À activer si nécessaire
+    cache_layouts: true
+  
+  compatibility:
+    maintain_backward_compatibility: true
+    legacy_fallback: true 

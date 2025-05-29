@@ -1,0 +1,42 @@
+# Configuration par défaut LensCRL v2.0
+version: "2.0"
+
+detection:
+  section_patterns:
+    - pattern: '^\d+(?:\.\d+)*$'
+      description: "Numérotation classique (1.2.3)"
+    - pattern: '^[A-Z]+\d+(?:\.\d+)*$'
+      description: "Préfixe lettres (A1.2)"
+    - pattern: '^[A-Z]+[-_]\d+(?:\.\d+)*$'
+      description: "Préfixe avec séparateur (DOC-1.2)"
+  
+  formatting:
+    font_size_range: [12.0, 16.0]    # Remplace 14.0 fixe
+    bold_required: true
+    title_min_length: 5
+    
+  positioning:
+    max_distance_pixels: 100
+    column_detection: false          # Pour plus tard
+    
+extraction:
+  image_filters:
+    min_width: 50
+    min_height: 50 
+    max_file_size_mb: 50
+    allowed_formats: ["png", "jpg", "jpeg", "bmp", "gif", "tiff"]
+    
+  duplicate_detection:
+    hash_algorithm: "md5"
+    similarity_threshold: 0.95
+    filter_logos: true
+    
+nomenclature:
+  prefix: "CRL"
+  separator: "-"
+  numbering_format: "n_{position}"
+  
+logging:
+  level: "INFO"
+  file: "lenscrl_extraction.log"
+  format: "%(asctime)s - %(levelname)s - %(message)s" 

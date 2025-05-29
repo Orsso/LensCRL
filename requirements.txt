@@ -1,11 +1,20 @@
-# LensCRL v1.0 - Dependencies
+# LensCRL v2.0 - Dependencies
 # ===========================
 
 # Main library for PDF manipulation
 PyMuPDF>=1.23.0
 
+# Configuration management
+pyyaml>=6.0
+
 # Optional: For advanced image manipulation features
 # Pillow>=10.0.0
+
+# Development dependencies (optional)
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=23.0.0
+flake8>=6.0.0
 
 # The following modules are included in Python 3.7+ standard library:
 # - os
