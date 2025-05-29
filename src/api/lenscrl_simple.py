@@ -68,9 +68,39 @@ class LensCRLSimple:
     
     def __init__(self, debug: bool = True):
         self.logger = logging.getLogger(__name__)
+        
+        # Configuration du logging spécifique à LensCRL seulement
         if debug:
-            logging.basicConfig(level=logging.DEBUG, 
-                              format='%(asctime)s - %(levelname)s - %(message)s')
+            # Nettoyer les handlers existants pour éviter la duplication
+            for handler in self.logger.handlers[:]:
+                self.logger.removeHandler(handler)
+            
+            # Créer un handler console spécifique
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(logging.INFO)  # INFO au lieu de DEBUG pour réduire le bruit
+            
+            # Format simplifié et propre
+            formatter = logging.Formatter('%(levelname)s - %(message)s')
+            console_handler.setFormatter(formatter)
+            
+            # Configurer le logger LensCRL seulement
+            self.logger.setLevel(logging.INFO)
+            self.logger.addHandler(console_handler)
+            
+            # Empêcher la propagation vers le logger racine
+            self.logger.propagate = False
+            
+            # Réduire le niveau des autres loggers pour éviter le spam
+            logging.getLogger("fitz").setLevel(logging.WARNING)
+            logging.getLogger("pypdfium2").setLevel(logging.WARNING)
+            logging.getLogger("PIL").setLevel(logging.WARNING)
+            logging.getLogger("matplotlib").setLevel(logging.WARNING)
+            
+            # Supprimer les logs de système de fichiers/watchdog/etc
+            for noisy_logger in ['watchdog', 'inotify', 'fsevents', 'polling', 'file_events']:
+                logging.getLogger(noisy_logger).setLevel(logging.CRITICAL)
+        else:
+            self.logger.setLevel(logging.WARNING)
     
     def extract_images(self, pdf_path: str, output_dir: str, 
                       manual_name: Optional[str] = None,
