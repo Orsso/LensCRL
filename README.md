@@ -6,6 +6,8 @@
 ![Streamlit](https://img.shields.io/badge/streamlit-latest-red.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
+<!-- Force redeploy 2025-05-29 -->
+
 ## 🌐 Application
 
 **🚀 [https://lenscrl.streamlit.app/](https://lenscrl.streamlit.app/)**
