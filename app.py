@@ -739,9 +739,9 @@ st.markdown("""
     .action-buttons-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-        margin: 2rem 0;
-        padding: 1rem;
+        gap: 2rem;
+        margin: 2.5rem 0;
+        padding: 1.5rem;
     }
     
     /* Download button principal avec style uniforme */
@@ -749,33 +749,34 @@ st.markdown("""
         background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%) !important;
         color: white !important;
         border: none !important;
-        border-radius: 12px !important;
-        padding: 1.25rem 2rem !important;
+        border-radius: 16px !important;
+        padding: 1.75rem 2.5rem !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 600 !important;
-        font-size: 1.1rem !important;
+        font-size: 1.2rem !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 6px 16px rgba(46, 125, 50, 0.3) !important;
+        box-shadow: 0 8px 20px rgba(46, 125, 50, 0.35) !important;
         text-transform: none !important;
         letter-spacing: 0.025em !important;
         width: 100% !important;
-        height: 60px !important;
+        height: 75px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 0.75rem !important;
+        gap: 1rem !important;
+        position: relative !important;
     }
     
     .main-download-btn .stDownloadButton > button:hover {
         background: linear-gradient(135deg, #388E3C 0%, #43A047 100%) !important;
-        box-shadow: 0 8px 24px rgba(46, 125, 50, 0.4) !important;
-        transform: translateY(-3px) !important;
+        box-shadow: 0 12px 28px rgba(46, 125, 50, 0.45) !important;
+        transform: translateY(-4px) !important;
         color: white !important;
     }
     
     .main-download-btn .stDownloadButton > button:active {
-        transform: translateY(-1px) !important;
-        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35) !important;
         color: white !important;
     }
     
@@ -784,41 +785,63 @@ st.markdown("""
         background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%) !important;
         color: white !important;
         border: none !important;
-        border-radius: 12px !important;
-        padding: 1.25rem 2rem !important;
+        border-radius: 16px !important;
+        padding: 1.75rem 2.5rem !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 600 !important;
-        font-size: 1.1rem !important;
+        font-size: 1.2rem !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 6px 16px rgba(107, 114, 128, 0.3) !important;
+        box-shadow: 0 8px 20px rgba(107, 114, 128, 0.35) !important;
         text-transform: none !important;
         letter-spacing: 0.025em !important;
         width: 100% !important;
-        height: 60px !important;
+        height: 75px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 0.75rem !important;
+        gap: 1rem !important;
+        position: relative !important;
     }
     
     .main-reset-btn .stButton > button:hover {
         background: linear-gradient(135deg, #4B5563 0%, #374151 100%) !important;
-        box-shadow: 0 8px 24px rgba(107, 114, 128, 0.4) !important;
-        transform: translateY(-3px) !important;
+        box-shadow: 0 12px 28px rgba(107, 114, 128, 0.45) !important;
+        transform: translateY(-4px) !important;
         color: white !important;
     }
     
     .main-reset-btn .stButton > button:active {
-        transform: translateY(-1px) !important;
-        box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 16px rgba(107, 114, 128, 0.35) !important;
         color: white !important;
     }
     
     /* Force la même hauteur pour tous les boutons d'action */
     .main-download-btn .stDownloadButton > button,
     .main-reset-btn .stButton > button {
-        min-height: 60px !important;
-        max-height: 60px !important;
+        min-height: 75px !important;
+        max-height: 75px !important;
+    }
+    
+    /* Icônes dans les boutons */
+    .main-download-btn .stDownloadButton > button::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4'/%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-size: contain !important;
+        margin-right: 0.5rem !important;
+    }
+    
+    .main-reset-btn .stButton > button::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'/%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-size: contain !important;
+        margin-right: 0.5rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
