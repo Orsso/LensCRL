@@ -48,7 +48,6 @@ else:
 st.set_page_config(
     page_title="LensCRL Simple",
     page_icon="🔍",
-    layout="wide",
 )
 
 # Styles CSS personnalisés
@@ -263,33 +262,47 @@ st.markdown("""
         color: white !important;
     }
     
-    /* Section download button special styling */
+    /* Section download button special styling - compact pour mode normal */
     .section-download-btn .stDownloadButton > button {
-        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%);
+        background: linear-gradient(135deg, #4C9BE8 0%, #3B82F6 100%) !important;
         color: white !important;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        min-height: 32px;
+        font-size: 0.75rem !important;
+        padding: 0.4rem 0.8rem !important;
+        border-radius: 6px !important;
+        min-height: 32px !important;
+        max-height: 32px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 2px 6px rgba(76, 155, 232, 0.2) !important;
     }
     .section-download-btn .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%) !important;
         color: white !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 3px 8px rgba(76, 155, 232, 0.3) !important;
     }
     
-    /* Individual image download buttons */
+    /* Individual image download buttons - très compacts */
     .image-download-btn .stDownloadButton > button {
-        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%) !important;
         color: white !important;
-        font-size: 0.8rem;
-        padding: 0.3rem 0.6rem;
-        border-radius: 4px;
-        width: 100%;
-        min-height: 28px;
+        font-size: 0.7rem !important;
+        padding: 0.25rem 0.5rem !important;
+        border-radius: 4px !important;
+        width: 100% !important;
+        min-height: 24px !important;
+        max-height: 24px !important;
+        font-weight: 500 !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
     }
     .image-download-btn .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #4B5563 0%, #374151 100%);
+        background: linear-gradient(135deg, #4B5563 0%, #374151 100%) !important;
         color: white !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
     }
     
     /* Bouton reset spécial */
@@ -735,120 +748,129 @@ st.markdown("""
         text-decoration: none !important;
     }
     
-    /* Boutons d'action principaux - style moderne et attrayant */
+    /* Boutons d'action principaux - style gros et carré pour mode normal */
     .action-buttons-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin: 2.5rem 0;
-        padding: 1rem;
+        gap: 1.5rem;
+        margin: 2rem 0;
+        padding: 0.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    /* Download button - SUPERBE BOUTON VERT */
+    /* Download button - GROS BOUTON CARRÉ VERT */
     .main-download-btn .stDownloadButton > button {
-        background: linear-gradient(135deg, #27AE60 0%, #2ECC71 50%, #58D68D 100%) !important;
+        background: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%) !important;
         color: white !important;
         border: none !important;
-        border-radius: 20px !important;
-        padding: 2rem 1.5rem !important;
+        border-radius: 12px !important;
+        padding: 2.5rem 1rem !important;
         font-family: 'Inter', sans-serif !important;
-        font-weight: 800 !important;
-        font-size: 1.3rem !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        font-weight: 900 !important;
+        font-size: 1rem !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         box-shadow: 
-            0 10px 30px rgba(39, 174, 96, 0.4),
-            0 6px 20px rgba(46, 204, 113, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+            0 8px 25px rgba(39, 174, 96, 0.35),
+            0 3px 10px rgba(39, 174, 96, 0.2) !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
+        letter-spacing: 0.08em !important;
         width: 100% !important;
-        height: 90px !important;
-        min-height: 90px !important;
-        max-height: 90px !important;
+        height: 120px !important;
+        min-height: 120px !important;
+        max-height: 120px !important;
         position: relative !important;
         overflow: hidden !important;
+        aspect-ratio: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
     }
     
     .main-download-btn .stDownloadButton > button::before {
-        content: '⬇' !important;
+        content: '📥' !important;
         position: absolute !important;
-        left: 20px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        font-size: 1.5rem !important;
-        opacity: 0.8 !important;
+        top: 25px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        font-size: 2rem !important;
+        opacity: 0.9 !important;
     }
     
     .main-download-btn .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #2ECC71 0%, #58D68D 50%, #7DCEA0 100%) !important;
+        background: linear-gradient(135deg, #2ECC71 0%, #58D68D 100%) !important;
         box-shadow: 
-            0 15px 40px rgba(39, 174, 96, 0.5),
-            0 10px 30px rgba(46, 204, 113, 0.4),
-            inset 0 2px 0 rgba(255, 255, 255, 0.3) !important;
-        transform: translateY(-5px) scale(1.02) !important;
+            0 12px 35px rgba(39, 174, 96, 0.4),
+            0 5px 15px rgba(39, 174, 96, 0.3) !important;
+        transform: translateY(-3px) scale(1.05) !important;
         color: white !important;
     }
     
-    /* Reset button - SUPERBE BOUTON ROUGE */
+    /* Reset button - GROS BOUTON CARRÉ ROUGE */
     .main-reset-btn .stButton > button {
-        background: linear-gradient(135deg, #E74C3C 0%, #EC7063 50%, #F1948A 100%) !important;
+        background: linear-gradient(135deg, #E74C3C 0%, #EC7063 100%) !important;
         color: white !important;
         border: none !important;
-        border-radius: 20px !important;
-        padding: 2rem 1.5rem !important;
+        border-radius: 12px !important;
+        padding: 2.5rem 1rem !important;
         font-family: 'Inter', sans-serif !important;
-        font-weight: 800 !important;
-        font-size: 1.3rem !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        font-weight: 900 !important;
+        font-size: 1rem !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         box-shadow: 
-            0 10px 30px rgba(231, 76, 60, 0.4),
-            0 6px 20px rgba(236, 112, 99, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+            0 8px 25px rgba(231, 76, 60, 0.35),
+            0 3px 10px rgba(231, 76, 60, 0.2) !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
+        letter-spacing: 0.08em !important;
         width: 100% !important;
-        height: 90px !important;
-        min-height: 90px !important;
-        max-height: 90px !important;
+        height: 120px !important;
+        min-height: 120px !important;
+        max-height: 120px !important;
         position: relative !important;
         overflow: hidden !important;
+        aspect-ratio: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
     }
     
     .main-reset-btn .stButton > button::before {
         content: '🔄' !important;
         position: absolute !important;
-        left: 20px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        font-size: 1.3rem !important;
-        opacity: 0.8 !important;
+        top: 25px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        font-size: 1.8rem !important;
+        opacity: 0.9 !important;
     }
     
     .main-reset-btn .stButton > button:hover {
-        background: linear-gradient(135deg, #EC7063 0%, #F1948A 50%, #FADBD8 100%) !important;
+        background: linear-gradient(135deg, #EC7063 0%, #F1948A 100%) !important;
         box-shadow: 
-            0 15px 40px rgba(231, 76, 60, 0.5),
-            0 10px 30px rgba(236, 112, 99, 0.4),
-            inset 0 2px 0 rgba(255, 255, 255, 0.3) !important;
-        transform: translateY(-5px) scale(1.02) !important;
+            0 12px 35px rgba(231, 76, 60, 0.4),
+            0 5px 15px rgba(231, 76, 60, 0.3) !important;
+        transform: translateY(-3px) scale(1.05) !important;
         color: white !important;
     }
     
-    /* Animation de pulsation pour attirer l'attention */
-    @keyframes pulse {
+    /* Animation de pulsation subtile */
+    @keyframes subtle-pulse {
         0% {
-            box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.35), 0 3px 10px rgba(39, 174, 96, 0.2);
         }
-        70% {
-            box-shadow: 0 0 0 10px rgba(39, 174, 96, 0);
+        50% {
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.4), 0 4px 12px rgba(39, 174, 96, 0.25);
         }
         100% {
-            box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.35), 0 3px 10px rgba(39, 174, 96, 0.2);
         }
     }
     
     .main-download-btn .stDownloadButton > button {
-        animation: pulse 2s infinite !important;
+        animation: subtle-pulse 3s ease-in-out infinite !important;
     }
     
     /* Focus et active states */
