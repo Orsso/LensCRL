@@ -6,8 +6,7 @@ API Package - LensCRL Backend
 API Backend pour découpler l'extraction d'images PDF de l'interface utilisateur.
 """
 
-from .lenscrl_api import LensCRLAPI
+# API LensCRL Simple
+from .lenscrl_simple import LensCRLSimple
 
-__all__ = [
-    'LensCRLAPI'
-] 
+__all__ = ['LensCRLSimple'] 

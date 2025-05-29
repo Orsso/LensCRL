@@ -1,11 +1,15 @@
 # LensCRL - PDF Image Extractor
 # .gitignore
 
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# C extensions
 *.so
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -19,6 +23,7 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -26,6 +31,8 @@ share/python-wheels/
 MANIFEST
 
 # PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 
@@ -46,9 +53,58 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
-cover/
 
-# Virtual environments
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
 .env
 .venv
 env/
@@ -56,6 +112,64 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# LensCRL specific
+*.pdf
+output/
+output_*/
+batch_output/
+*_output/
+extracted_images/
+temp/
+tmp/
+logs/
+*.log
+
+# Configuration files locales
+config_local.yaml
+config_custom.yaml
+config_backup.yaml
+
+# Rapports et analyses
+analysis.json
+preview_report.json
+batch_report.txt
+batch_results.json
+*_report.*
+
+# Cache et temporaire
+.lenscrl_cache/
+.cache/
+*.tmp
+*.temp
+
+# Base de données
+*.db
+*.sqlite
+*.sqlite3
+
+# Fichiers de test temporaires
+test_*.pdf
+exemple_*.pdf
+sample_*.pdf
 
 # IDE
 .vscode/

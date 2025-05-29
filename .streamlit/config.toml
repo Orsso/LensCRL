@@ -1,0 +1,13 @@
+[theme]
+primaryColor = "#4C9BE8"  # Bleu clair pour les accents
+backgroundColor = "#0E1117"  # Fond sombre
+secondaryBackgroundColor = "#262730"  # Fond secondaire pour les widgets
+textColor = "#FAFAFA"  # Texte clair
+font = "sans serif"
+
+[server]
+enableCORS = false
+enableXsrfProtection = false
+
+[browser]
+gatherUsageStats = false 
