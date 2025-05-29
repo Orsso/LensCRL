@@ -734,6 +734,92 @@ st.markdown("""
         color: #4C9BE8 !important;
         text-decoration: none !important;
     }
+    
+    /* Boutons d'action principaux - style uniforme */
+    .action-buttons-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1.5rem 0;
+        padding: 0.5rem;
+    }
+    
+    /* Download button principal avec style uniforme */
+    .main-download-btn .stDownloadButton > button {
+        background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 1rem 1.5rem !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 0.95rem !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25) !important;
+        text-transform: none !important;
+        letter-spacing: 0.025em !important;
+        width: 100% !important;
+        height: 50px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+    
+    .main-download-btn .stDownloadButton > button:hover {
+        background: linear-gradient(135deg, #388E3C 0%, #43A047 100%) !important;
+        box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4) !important;
+        transform: translateY(-2px) !important;
+        color: white !important;
+    }
+    
+    .main-download-btn .stDownloadButton > button:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3) !important;
+        color: white !important;
+    }
+    
+    /* Reset button principal avec style uniforme */
+    .main-reset-btn .stButton > button {
+        background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 1rem 1.5rem !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 0.95rem !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 4px 12px rgba(107, 114, 128, 0.25) !important;
+        text-transform: none !important;
+        letter-spacing: 0.025em !important;
+        width: 100% !important;
+        height: 50px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+    }
+    
+    .main-reset-btn .stButton > button:hover {
+        background: linear-gradient(135deg, #4B5563 0%, #374151 100%) !important;
+        box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4) !important;
+        transform: translateY(-2px) !important;
+        color: white !important;
+    }
+    
+    .main-reset-btn .stButton > button:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3) !important;
+        color: white !important;
+    }
+    
+    /* Force la même hauteur pour tous les boutons d'action */
+    .main-download-btn .stDownloadButton > button,
+    .main-reset-btn .stButton > button {
+        min-height: 50px !important;
+        max-height: 50px !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -987,20 +1073,35 @@ def main():
                                 Actions
                             </p>
                         ''', unsafe_allow_html=True)
-                        col1, col2 = st.columns(2)
+                        
+                        # Container pour boutons d'action uniformes
+                        st.markdown('<div class="action-buttons-container">', unsafe_allow_html=True)
+                        
+                        col1, col2 = st.columns(2, gap="large")
                         with col1:
+                            st.markdown('<div class="main-download-btn">', unsafe_allow_html=True)
                             zip_data = create_zip_from_images(results.images_extracted, manual_name)
                             st.download_button(
-                                label="Télécharger toutes les images",
+                                label="📥 Télécharger toutes les images",
                                 data=zip_data,
                                 file_name=f"{manual_name}_images_completes.zip",
                                 mime="application/zip",
-                                use_container_width=True
+                                use_container_width=True,
+                                help=f"Télécharger {len(results.images_extracted)} images en ZIP"
                             )
+                            st.markdown('</div>', unsafe_allow_html=True)
+                            
                         with col2:
-                            st.button("Scanner un autre document", 
-                                     on_click=reset_application, 
-                                     use_container_width=True)
+                            st.markdown('<div class="main-reset-btn">', unsafe_allow_html=True)
+                            st.button(
+                                "🔄 Scanner un autre document", 
+                                on_click=reset_application, 
+                                use_container_width=True,
+                                help="Recommencer avec un nouveau PDF"
+                            )
+                            st.markdown('</div>', unsafe_allow_html=True)
+                        
+                        st.markdown('</div>', unsafe_allow_html=True)
 
                     # Affichage des sections avec images dans des expanders
                     if results.stats.get('images_by_section'):
