@@ -735,53 +735,109 @@ st.markdown("""
         text-decoration: none !important;
     }
     
-    /* Boutons d'action principaux - STYLE SIMPLE ET EFFICACE */
+    /* Boutons d'action principaux - DESIGN FLAT MODERNE */
     .action-buttons-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-        margin: 2rem auto;
-        padding: 0.5rem;
-        max-width: 600px;
+        gap: 2rem;
+        margin: 2.5rem auto;
+        padding: 1rem;
+        max-width: 800px;
+        width: 100%;
     }
     
-    /* GROS BOUTONS - Force tous les boutons des containers spéciaux */
+    /* GROS BOUTONS FLAT DESIGN - Moderne et propre */
     div[class*="main-download-btn"] button,
     div[class*="main-reset-btn"] button {
-        height: 100px !important;
-        min-height: 100px !important;
-        font-size: 1.1rem !important;
-        font-weight: 800 !important;
+        height: 140px !important;
+        min-height: 140px !important;
+        font-size: 1.3rem !important;
+        font-weight: 700 !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.1em !important;
-        border-radius: 15px !important;
-        padding: 2rem 1rem !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+        letter-spacing: 0.15em !important;
+        border-radius: 8px !important;
+        padding: 2rem 1.5rem !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        border: none !important;
+        position: relative !important;
+        overflow: hidden !important;
+        font-family: 'Inter', sans-serif !important;
+        cursor: pointer !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
     }
     
+    /* Bouton télécharger - Vert flat moderne */
     div[class*="main-download-btn"] button {
-        background: linear-gradient(135deg, #27AE60, #2ECC71) !important;
+        background: #2ECC71 !important;
         color: white !important;
-        border: none !important;
+    }
+    
+    div[class*="main-download-btn"] button::before {
+        content: '' !important;
+        position: absolute !important;
+        left: 25px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 28px !important;
+        height: 28px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10'/%3E%3C/svg%3E") !important;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        opacity: 0.9 !important;
     }
     
     div[class*="main-download-btn"] button:hover {
-        background: linear-gradient(135deg, #2ECC71, #58D68D) !important;
-        transform: translateY(-3px) scale(1.02) !important;
-        box-shadow: 0 12px 30px rgba(39, 174, 96, 0.4) !important;
+        background: #27AE60 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 20px rgba(46, 204, 113, 0.25) !important;
     }
     
+    div[class*="main-download-btn"] button:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Bouton nouveau document - Rouge flat moderne */
     div[class*="main-reset-btn"] button {
-        background: linear-gradient(135deg, #E74C3C, #EC7063) !important;
+        background: #E74C3C !important;
         color: white !important;
-        border: none !important;
+    }
+    
+    div[class*="main-reset-btn"] button::before {
+        content: '' !important;
+        position: absolute !important;
+        left: 25px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 28px !important;
+        height: 28px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m0-6h6m-6 0H6'/%3E%3C/svg%3E") !important;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        opacity: 0.9 !important;
     }
     
     div[class*="main-reset-btn"] button:hover {
-        background: linear-gradient(135deg, #EC7063, #F1948A) !important;
-        transform: translateY(-3px) scale(1.02) !important;
-        box-shadow: 0 12px 30px rgba(231, 76, 60, 0.4) !important;
+        background: #C0392B !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 20px rgba(231, 76, 60, 0.25) !important;
+    }
+    
+    div[class*="main-reset-btn"] button:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Effet de focus pour accessibilité */
+    div[class*="main-download-btn"] button:focus,
+    div[class*="main-reset-btn"] button:focus {
+        outline: 3px solid rgba(76, 155, 232, 0.5) !important;
+        outline-offset: 2px !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -1045,7 +1101,7 @@ def main():
                             st.markdown('<div class="main-download-btn">', unsafe_allow_html=True)
                             zip_data = create_zip_from_images(results.images_extracted, manual_name)
                             st.download_button(
-                                label="📥 TÉLÉCHARGER TOUT",
+                                label="TÉLÉCHARGER TOUT",
                                 data=zip_data,
                                 file_name=f"{manual_name}_images_completes.zip",
                                 mime="application/zip",
@@ -1057,7 +1113,7 @@ def main():
                         with col2:
                             st.markdown('<div class="main-reset-btn">', unsafe_allow_html=True)
                             st.button(
-                                "🔄 NOUVEAU DOCUMENT", 
+                                "NOUVEAU DOCUMENT", 
                                 on_click=reset_application, 
                                 use_container_width=True,
                                 help="Recommencer avec un nouveau PDF"
