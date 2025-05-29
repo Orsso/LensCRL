@@ -71,10 +71,6 @@ CRL-PROCSG02-2.3 n_1.png
 ...
 ```
 
-## 🔧 Développement
-
-L'ancienne version complexe est disponible dans la branche `legacy`.
-
 ---
 
-**Made with [LensCRL](https://github.com/Orsso/LensCRL)**
+
