@@ -789,12 +789,29 @@ if 'config_collapsed' not in st.session_state:
     st.session_state.config_collapsed = True
 
 def reset_application():
+    """Reset complet de l'application : session state + cache Streamlit"""
+    # Nettoyer l'ancien dossier temporaire s'il existe
+    if 'temp_dir' in st.session_state:
+        old_temp_dir = Path(st.session_state.temp_dir)
+        if old_temp_dir.exists():
+            shutil.rmtree(old_temp_dir, ignore_errors=True)
+    
+    # Créer un nouveau dossier temporaire
+    st.session_state.temp_dir = tempfile.mkdtemp()
+    
+    # Reset des variables de session
     st.session_state.reset_app = True
     st.session_state.treatment_state = 'button'  # Remettre à l'état initial
+    st.session_state.processing_results = None
+    st.session_state.last_process_key = None
+    
     # Incrémenter la clé du file uploader pour le forcer à se reset
     if 'file_uploader_key' not in st.session_state:
         st.session_state.file_uploader_key = 0
     st.session_state.file_uploader_key += 1
+    
+    # IMPORTANT: Vider le cache Streamlit pour forcer le retraitement
+    st.cache_data.clear()
 
 def create_zip_from_images(image_paths, manual_name="images"):
     zip_buffer = io.BytesIO()
@@ -1251,6 +1268,10 @@ def main():
                                                     use_container_width=True,
                                                     key=f"img_dl_{section}_{idx}"
                                                 )
+                                        else:
+                                            # Fichier manquant - afficher un message informatif
+                                            st.warning(f"⚠️ Fichier manquant: {img_info['filename']}")
+                                            st.info("💡 Cliquez sur **NOUVEAU DOC** pour relancer l'extraction")
             else:
                 st.error(f"Erreur lors du traitement: {', '.join(results.errors if results.errors else ['Erreur inconnue'])}")
 
