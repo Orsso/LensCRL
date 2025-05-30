@@ -45,10 +45,24 @@ else:
         st.error("❌ Impossible de charger l'API LensCRL")
         st.stop()
 
+# Créer un favicon basé sur le logo SVG de l'app
+FAVICON_SVG = """
+<svg width="32" height="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="25" cy="25" r="20" fill="#0E1117" stroke="#4C9BE8" stroke-width="3"/>
+    <circle cx="25" cy="25" r="12" fill="#4C9BE8" opacity="0.4"/>
+    <path d="M18 25 L32 25 M25 18 L25 32" stroke="#4C9BE8" stroke-width="3" stroke-linecap="round"/>
+    <path d="M20 20 L30 30 M30 20 L20 30" stroke="#4C9BE8" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+</svg>
+"""
+
+# Encoder le SVG en base64 pour l'utiliser comme favicon
+favicon_b64 = base64.b64encode(FAVICON_SVG.encode()).decode()
+favicon_url = f"data:image/svg+xml;base64,{favicon_b64}"
+
 # Configuration de la page
 st.set_page_config(
     page_title="LensCRL Simple",
-    page_icon="🔍",
+    page_icon=favicon_url,  # Utilise le logo SVG de l'app comme favicon
     layout="centered",
 )
 
@@ -1279,7 +1293,7 @@ def main():
         st.markdown(
             '''
             <div style="margin-top: 3rem; padding: 1rem; text-align: center; color: #4C9BE8; opacity: 0.8;">
-                Made with <a href="https://github.com/Orsso/LensCRL" target="_blank" style="color: #4C9BE8; text-decoration: none;">LensCRL</a>
+                Run local : <a href="https://github.com/Orsso/LensCRL" target="_blank" style="color: #4C9BE8; text-decoration: none;">LensCRL</a>
             </div>
             ''',
             unsafe_allow_html=True
