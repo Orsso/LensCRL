@@ -61,7 +61,7 @@ favicon_url = f"data:image/svg+xml;base64,{favicon_b64}"
 
 # Configuration de la page
 st.set_page_config(
-    page_title="LensCRL Simple",
+    page_title="LensCRL",
     page_icon=favicon_url,  # Utilise le logo SVG de l'app comme favicon
     layout="centered",
 )
