@@ -160,9 +160,13 @@ class LensCRLSimple:
             
             # Traiter chaque section avec compteur
             for section, section_images in images_by_section.items():
+                total_images_in_section = len(section_images)
                 for counter, img_info in enumerate(section_images, 1):  # Commencer à 1
                     try:
-                        file_info = self._save_image_simple(doc, img_info, output_path, manual_name, counter, prefix)
+                        file_info = self._save_image_simple(
+                            doc, img_info, output_path, manual_name, 
+                            counter, prefix, total_images_in_section
+                        )
                         if file_info:
                             extracted_files.append(file_info)
                     except Exception as e:
@@ -601,7 +605,7 @@ class LensCRLSimple:
     
     def _save_image_simple(self, doc: fitz.Document, img_info: Dict, 
                           output_path: Path, manual_name: str, counter: int,
-                          prefix: str = "CRL") -> Optional[Dict]:
+                          prefix: str = "CRL", total_images_in_section: int = 1) -> Optional[Dict]:
         """Sauvegarde simple d'une image avec nomenclature personnalisée"""
         try:
             img = img_info['image']
@@ -615,7 +619,10 @@ class LensCRLSimple:
             
             # Nomenclature personnalisée: PREFIX-XXXX-X.X n_X.ext
             section = img_info['section']
-            filename = f"{prefix}-{manual_name}-{section} n_{counter}.{img.format}"
+            if total_images_in_section > 1:
+                filename = f"{prefix}-{manual_name}-{section} n_{counter}.{img.format}"
+            else:
+                filename = f"{prefix}-{manual_name}-{section}.{img.format}"
             output_file = output_path / filename
             
             # Sauvegarder
